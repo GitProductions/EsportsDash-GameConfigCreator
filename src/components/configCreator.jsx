@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Tabs, Tab, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -7,7 +7,9 @@ import {
   faTimes,
   faGamepad,
   faCode,
-  faUser
+  faUser,
+  faSun,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JSZip from 'jszip';
@@ -33,6 +35,15 @@ const ConfigBuilder = () => {
     version: '1.0',
     author: ''
   });
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prevMode => !prevMode);
+  };
+
+  useEffect(() => {
+    document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
+  }, [isDarkMode]);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -153,10 +164,16 @@ const ConfigBuilder = () => {
 
 
   return (
-    <Container className="py-4">
-      <Card className="shadow">
-        <Card.Header className="bg-primary text-white">
-          <h4 className="mb-0">Esports DashBoard Config Builder</h4>
+    <Container className={`py-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+      <Card className={`shadow ${isDarkMode ? 'bg-secondary text-white' : 'bg-white text-dark'}`}>
+        <Card.Header className={`${isDarkMode ? 'bg-dark text-white' : 'bg-primary text-white'}`}>
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mb-0">Esports DashBoard Config Builder</h4>
+            <Button variant={isDarkMode ? 'dark' : 'light'} onClick={toggleDarkMode}>
+              {/* {isDarkMode ? 'Light Mode' : 'Dark Mode'} */}
+              <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
+            </Button>
+          </div>
         </Card.Header>
         <Card.Body>
           {/* Metadata Section */}
@@ -208,18 +225,19 @@ const ConfigBuilder = () => {
             activeKey={activeTab}
             onSelect={(k) => setActiveTab(k)}
             className="mb-4"
+            variant={isDarkMode ? 'pills' : 'tabs'}
           >
             {['maps', 'modes', 'roles', 'heroes'].map(section => (
               <Tab key={section} eventKey={section} title={section.charAt(0).toUpperCase() + section.slice(1)}>
                 <div className="mt-3">
                   <div
-                    className="border border-2 border-dashed rounded p-5 text-center mb-4 cursor-pointer"
-                    style={{ background: '#f8f9fa' }}
+                    className={`rounded p-5 text-center mb-4 ${isDarkMode ? 'bg-secondary' : 'bg-light'}`}
+                    style={{ outline: '2px dashed', outlineOffset: '4px', cursor: 'pointer' }}
                     onDrop={handleDrop}
                     onDragOver={(e) => e.preventDefault()}
                     onClick={() => document.getElementById(`${section}-upload`).click()}
                   >
-                    <FontAwesomeIcon icon={faUpload} size="2x" className="text-secondary mb-3" />
+                    <FontAwesomeIcon icon={faUpload} size="2x" className={`text-${isDarkMode ? 'light' : 'secondary'} mb-3`} />
                     <p className="mb-0">Drag & drop images here or click to upload</p>
                     <input
                       id={`${section}-upload`}
@@ -278,10 +296,10 @@ const ConfigBuilder = () => {
           </Tabs>
 
           {/* Export Options */}
-          <div className="border-top pt-4">
+          <div className="pt-4">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 className="mb-0">Export Sections</h5>
-            
+
             </div>
             <Row xs={2} md={6} className="g-3">
               {Object.entries(selectedSections).map(([section, isSelected]) => (
@@ -302,15 +320,15 @@ const ConfigBuilder = () => {
             </Row>
 
             <div className="d-flex align-items-center mt-5">
-                <Button variant="success" onClick={downloadConfig} className="me-2">
-                  <FontAwesomeIcon icon={faDownload} className="me-2" />
-                  Export XML
-                </Button>
-                <Button variant="primary" onClick={zipConfignFiles}>
-                  <FontAwesomeIcon icon={faDownload} className="me-2" />
-                  Export Zip
-                </Button>
-              </div>
+              <Button variant="success" onClick={downloadConfig} className="me-2">
+                <FontAwesomeIcon icon={faDownload} className="me-2" />
+                Export XML
+              </Button>
+              <Button variant="primary" onClick={zipConfignFiles}>
+                <FontAwesomeIcon icon={faDownload} className="me-2" />
+                Export Zip
+              </Button>
+            </div>
           </div>
         </Card.Body>
       </Card>
