@@ -6,6 +6,8 @@ import ConfigBuilder  from './components/configCreator'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ConfigBuilder />
+     <ConfigBuilder />
+    <App />
+   
   </StrictMode>,
 )

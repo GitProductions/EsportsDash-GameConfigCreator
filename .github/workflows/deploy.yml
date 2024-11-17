@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Match your development Node.js version
+          node-version: 18 
           cache: 'npm'
 
       # Step 3: Install dependencies
