@@ -64,7 +64,7 @@ const GameConfigExplorer = () => {
         <Card.Header className={`${isDarkMode ? 'bg-dark text-white' : 'bg-primary text-white'}`}>
           <h4 className="mb-0">
             <FontAwesomeIcon icon={faFolder} className="me-2" />
-            Dashboard Asset Downloads
+            Dashboard Asset Explorer
           </h4>
 
         </Card.Header>
@@ -139,7 +139,7 @@ const GameConfigExplorer = () => {
               <Col key={folder.name} xs={12} md={6} lg={4}>
                 <Card className="h-100 shadow-sm hover-card">
                   <Card.Body
-                    className={`h-100 shadow-sm hover-card ${selectedCard === folder.name ? 'bg-primary text-white' : ''}`}
+                    className={`h-100 ${selectedCard === folder.name ? 'bg-primary text-white' : ''}`}
                     onClick={() => handleCardClick(folder.name)}
                   >
                     <Image src={`${githubImages}/${folder.name}/${folder.name}.png`} alt={folder.name}
@@ -244,7 +244,7 @@ const GameConfigExplorer = () => {
   );
 
   return (
-    <div className="bg-light min-vh-100">
+    <div className="">
       {view === "menu" && renderMenu()}
       {view === "gameConfigs" && renderGameConfigs()}
       {view === "htmlPacks" && renderHtmlPacks()}

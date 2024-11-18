@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Tabs, Tab, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faDownload, faTimes, faGamepad, faCode, faUser, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faDownload, faTimes, faGamepad, faCode, faUser, faSun, faMoon, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -159,7 +159,9 @@ const ConfigBuilder = () => {
       <Card className={`shadow ${isDarkMode ? 'bg-secondary text-white' : 'bg-white text-dark'}`}>
         <Card.Header className={`${isDarkMode ? 'bg-dark text-white' : 'bg-primary text-white'}`}>
           <div className="d-flex justify-content-between align-items-center">
-            <h4 className="mb-0">Esports DashBoard Config Builder</h4>
+            <h4 className="mb-0">
+              <FontAwesomeIcon icon={faFileCirclePlus} className="me-2" />
+              Esports DashBoard Config Builder</h4>
             <Button variant={isDarkMode ? 'dark' : 'light'} onClick={toggleDarkMode}>
               {/* {isDarkMode ? 'Light Mode' : 'Dark Mode'} */}
               <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />

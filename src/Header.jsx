@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad} from '@fortawesome/free-solid-svg-icons';
 
 const Header = ({ onSelect, selectedComponent }) => (
     <Navbar bg="dark" variant="dark" expand="lg" className="py-3 shadow-sm">
