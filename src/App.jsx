@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import './index.css'
 
 import GameConfigExplorer from './components/configDownloader';
 import ConfigBuilder from './components/configCreator';
