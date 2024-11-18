@@ -28,12 +28,12 @@ import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faF
         <Feature
             icon={faBroadcastTower}
             title="OBS Integration"
-            description="Connect directly with OBS Studio to manage scenes, overlays, and streaming effortlessly."
+            description="Connect directly with OBS Studio to manage configs, and update sources inside of OBS"
         />
         <Feature
             icon={faVideo}
             title="vMix Capable"
-            description="Easily integrate with vMix for professional-grade video production workflows."
+            description="Easily integrate with vMix using data sources and GT Titles."
         />
         <Feature
             icon={faFilm}
@@ -53,7 +53,7 @@ import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faF
         <Feature
             icon={faCloud}
             title="Cloud Storage"
-            description="Securely store and sync your configurations and replays in the cloud for easy access anywhere."
+            description="Securely store and sync your configurations, images and videos in the cloud for easy access anywhere."
         />
         <Feature
             icon={faTrophy}

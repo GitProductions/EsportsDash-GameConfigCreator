@@ -3,7 +3,27 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
+  /* scroll-behavior: smooth; */
 
+}
+
+/* body {
+  scroll-behavior: smooth;
+} */
+
+/* keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* fade in animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 

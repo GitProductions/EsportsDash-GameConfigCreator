@@ -12,24 +12,43 @@ import Header from './Header';
 import Footer from './Footer';
 
 
+
 function App() {
   const [selectedComponent, setSelectedComponent] = useState('home');
 
   const renderComponent = () => {
+    // lets add class to rendercomp main class?
+
+    // const fadeInComponent = () => {
+    //   const renderComp = document.querySelector('.renderComp');
+    //   if (renderComp) {
+    //       renderComp.classList.add('fade-in');
+      
+    //    setTimeout(() => {
+    //     renderComp.classList.remove('fade-in');
+    //   }, 1000);
+    // }
+    // }
+
+
     switch (selectedComponent) {
       case 'configBuilder':
+        // fadeInComponent();
         return <ConfigBuilder />;
       case 'gameConfigExplorer':
+        // fadeInComponent();
         return <GameConfigExplorer />;
       default:
+        // fadeInComponent();
         return <Home onSelect={setSelectedComponent} />;
     }
+    
   };
 
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header onSelect={setSelectedComponent} selectedComponent={selectedComponent} />
-      <main className="flex-grow-1">
+      <main className="renderComp flex-grow-1 fade-in">
         {renderComponent()}
       </main>
       <Footer />
