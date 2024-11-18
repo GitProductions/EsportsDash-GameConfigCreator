@@ -173,7 +173,7 @@ const GameConfigExplorer = () => {
               <Col key={folder.name} xs={6} md={3}>
                 <Card className="h-100 shadow-sm hover-card">
                   <Card.Body
-                    className={`d-flex flex-column align-items-center justify-content-center h-100 `}
+                    className={`d-flex flex-column align-items-center justify-content-center h-100 ${selectedCard === folder.name ? 'border border-primary' : ''} `}
                     onClick={() => handleCardClick(folder.name)}
                   >
                     <Image src={`${githubImages}/${folder.name}/${folder.name}.png`} alt={folder.name}
