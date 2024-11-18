@@ -6,7 +6,7 @@ import { faGamepad} from '@fortawesome/free-solid-svg-icons';
 const Header = ({ onSelect, selectedComponent }) => (
     <Navbar bg="dark" variant="dark" expand="lg" className="py-3 shadow-sm">
       <Container>
-        <Navbar.Brand href="#" className="d-flex align-items-center">
+        <Navbar.Brand href="/" className="d-flex align-items-center">
           <FontAwesomeIcon icon={faGamepad} className="me-2 " />
           Esports Dashboard
         </Navbar.Brand>
