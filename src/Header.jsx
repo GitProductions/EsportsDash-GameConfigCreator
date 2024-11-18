@@ -29,7 +29,7 @@ const Header = ({ onSelect, selectedComponent }) => (
               active={selectedComponent === 'gameConfigExplorer'}
               onClick={() => onSelect('gameConfigExplorer')}
             >
-              Config Explorer
+              Asset Explorer
             </Nav.Link>
             <Nav.Link
               active={selectedComponent === 'Download'}
