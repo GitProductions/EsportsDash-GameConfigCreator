@@ -10,6 +10,7 @@ import Home from './components/home/home';
 
 import Header from './Header';
 import Footer from './Footer';
+import Downloads from './components/downloads/downloads';
 
 
 
@@ -38,6 +39,10 @@ function App() {
       case 'gameConfigExplorer':
         // fadeInComponent();
         return <GameConfigExplorer />;
+
+      case 'download':
+        // fadeInComponent();
+        return <Downloads />;
       default:
         // fadeInComponent();
         return <Home onSelect={setSelectedComponent} />;

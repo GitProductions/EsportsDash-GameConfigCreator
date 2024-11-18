@@ -23,7 +23,7 @@ import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faF
         <Feature
             icon={faCode}
             title="API Calls"
-            description="Integrate seamlessly with external tools and services through powerful API support."
+            description="Integrate seamlessly with external tools and services through API support."
         />
         <Feature
             icon={faBroadcastTower}

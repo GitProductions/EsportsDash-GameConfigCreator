@@ -31,6 +31,13 @@ const Header = ({ onSelect, selectedComponent }) => (
             >
               Config Explorer
             </Nav.Link>
+            <Nav.Link
+              active={selectedComponent === 'Download'}
+              onClick={() => onSelect('download')}
+            >
+              Download
+            </Nav.Link>
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
