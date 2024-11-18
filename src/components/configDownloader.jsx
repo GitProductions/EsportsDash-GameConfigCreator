@@ -5,6 +5,10 @@ import { Container, Row, Col, Card, Button, Spinner, Alert, Image } from 'react-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faFileCode, faHome, faDownload, faGamepad, faCode } from '@fortawesome/free-solid-svg-icons';
 
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+
+
 const GameConfigExplorer = () => {
   const [view, setView] = useState("menu");
   const [folders, setFolders] = useState([]);
@@ -18,6 +22,28 @@ const GameConfigExplorer = () => {
 
   const githubRepoPath = "https://api.github.com/repos/GitProductions/EsportsDashBoard/contents";
   const githubImages = "https://raw.githubusercontent.com/GitProductions/EsportsDashBoard/main/Game%20Configs"
+
+
+
+  const downloadFolder = async (folderUrl, folderName) => {
+    try {
+      const response = await fetch(folderUrl);
+      const files = await response.json();
+      const zip = new JSZip();
+
+      for (const file of files) {
+        const fileResponse = await fetch(file.download_url);
+        const fileData = await fileResponse.blob();
+        zip.file(file.name, fileData);
+      }
+
+      const zipContent = await zip.generateAsync({ type: 'blob' });
+      saveAs(zipContent, `${folderName}.zip`);
+    } catch (error) {
+      console.error('Error downloading folder:', error);
+    }
+  };
+
 
   const handleCardClick = (folderName) => {
     setSelectedCard(folderName);
@@ -50,6 +76,14 @@ const GameConfigExplorer = () => {
       if (!response.ok) throw new Error("Failed to fetch repository data.");
       const data = await response.json();
       const dirs = data.filter((item) => item.type === "dir");
+
+      // lets make sure that deadlock and splatoon are at the bottom as they are 'coming soon' and not as popular either..
+      dirs.sort((a, b) => {
+        if (a.name === "Deadlock" || a.name === "Splatoon") return 1;
+        if (b.name === "Deadlock" || b.name === "Splatoon") return -1;
+        return 0;
+      });
+
       setFolders(dirs);
     } catch (err) {
       setError(err.message);
@@ -136,23 +170,23 @@ const GameConfigExplorer = () => {
 
           <Row className="g-4">
             {folders.map((folder) => (
-              <Col key={folder.name} xs={12} md={6} lg={4}>
+              <Col key={folder.name} xs={6} md={3}>
                 <Card className="h-100 shadow-sm hover-card">
                   <Card.Body
-                    className={`h-100 ${selectedCard === folder.name ? 'bg-primary text-white' : ''}`}
+                    className={`d-flex flex-column align-items-center justify-content-center h-100 `}
                     onClick={() => handleCardClick(folder.name)}
                   >
                     <Image src={`${githubImages}/${folder.name}/${folder.name}.png`} alt={folder.name}
-                     className="mb-3 rounded"
-                     style={{ width: "150px", height: "150px" }}
-                      />
-
-                    <h3 className="h5 mb-3">
+                      className="mb-3 rounded"
+                      style={{ width: "150px", height: "150px" }}
+                    />
+                  </Card.Body>
+                  <Card.Footer className={`text-center ${selectedCard === folder.name ? 'bg-primary text-white' : ''}`}>
+                    <h5 className="text-center">
                       <FontAwesomeIcon icon={faFileCode} className="me-2" />
                       {folder.name}
-                    </h3>
-                
-                  </Card.Body>
+                    </h5>
+                  </Card.Footer>
                 </Card>
               </Col>
             ))}
@@ -223,13 +257,18 @@ const GameConfigExplorer = () => {
                   <Card.Body className="d-flex flex-column">
                     {/* <img src="/api/placeholder/300/200" alt={folder.name} className="mb-3 rounded" /> */}
                     <h3 className="h5 mb-3">{folder.name}</h3>
-                    <Button
+                    {/* <Button
                       variant="primary"
                       href={`https://downgit.github.io/#/home?url=${folder.html_url}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-auto"
-                    >
+                    > */}
+                                  <Button
+                  variant="primary"
+                  onClick={() => downloadFolder(folder.url, folder.name)}
+                  className="mt-auto"
+                >
                       <FontAwesomeIcon icon={faDownload} className="me-2" />
                       Download Folder
                     </Button>
