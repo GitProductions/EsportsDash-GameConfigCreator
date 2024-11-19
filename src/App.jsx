@@ -19,20 +19,6 @@ function App() {
   const [selectedComponent, setSelectedComponent] = useState('home');
 
   const renderComponent = () => {
-    // lets add class to rendercomp main class?
-
-    // const fadeInComponent = () => {
-    //   const renderComp = document.querySelector('.renderComp');
-    //   if (renderComp) {
-    //       renderComp.classList.add('fade-in');
-      
-    //    setTimeout(() => {
-    //     renderComp.classList.remove('fade-in');
-    //   }, 1000);
-    // }
-    // }
-
-
     switch (selectedComponent) {
       case 'configBuilder':
         // fadeInComponent();
