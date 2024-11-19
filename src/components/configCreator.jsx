@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Card, Tabs, Tab, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faDownload, faTimes, faGamepad, faCode, faUser, faSun, faMoon, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-
+import { ThemeContext } from '../context/ThemeContext';
 
 const ConfigBuilder = () => {
+  const { isDarkMode } = useContext(ThemeContext);
+
   const [activeTab, setActiveTab] = useState('maps');
   const [selectedSections, setSelectedSections] = useState({
     maps: true,
@@ -26,11 +28,11 @@ const ConfigBuilder = () => {
     version: '1.0',
     author: ''
   });
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(prevMode => !prevMode);
-  };
+  // const toggleDarkMode = () => {
+  //   setIsDarkMode(prevMode => !prevMode);
+  // };
 
   useEffect(() => {
     document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
@@ -155,177 +157,175 @@ const ConfigBuilder = () => {
 
 
   return (
-    <Container className={`py-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
-      <Card className={`shadow ${isDarkMode ? 'bg-secondary text-white' : 'bg-white text-dark'}`}>
-        <Card.Header className={`${isDarkMode ? 'bg-dark text-white' : 'bg-primary text-white'}`}>
-          <div className="d-flex justify-content-between align-items-center">
-            <h4 className="mb-0">
-              <FontAwesomeIcon icon={faFileCirclePlus} className="me-2" />
-              Esports DashBoard Config Builder</h4>
-            <Button variant={isDarkMode ? 'dark' : 'light'} onClick={toggleDarkMode}>
-              {/* {isDarkMode ? 'Light Mode' : 'Dark Mode'} */}
-              <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
-            </Button>
-          </div>
-        </Card.Header>
-        <Card.Body>
-          {/* Metadata Section */}
-          <Row className="mb-4">
-            <Col md={4}>
-              <Form.Group>
-                <Form.Label>
-                  <FontAwesomeIcon icon={faUser} className="me-2" />
-                  Author
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  value={configMeta.author}
-                  onChange={(e) => setConfigMeta(prev => ({ ...prev, author: e.target.value }))}
-                  placeholder="Enter author name"
-                />
-              </Form.Group>
-            </Col>
-            <Col md={4}>
-              <Form.Group>
-                <Form.Label>
-                  <FontAwesomeIcon icon={faCode} className="me-2" />
-                  Version
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  value={configMeta.version}
-                  onChange={(e) => setConfigMeta(prev => ({ ...prev, version: e.target.value }))}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={4}>
-              <Form.Group>
-                <Form.Label>
-                  <FontAwesomeIcon icon={faGamepad} className="me-2" />
-                  Game
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  value={configMeta.game}
-                  onChange={(e) => setConfigMeta(prev => ({ ...prev, game: e.target.value }))}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
 
-          {/* Main Tabs */}
-          <Tabs
-            activeKey={activeTab}
-            onSelect={(k) => setActiveTab(k)}
-            className="mb-4"
-            variant={isDarkMode ? 'pills' : 'tabs'}
-          >
-            {['maps', 'modes', 'roles', 'heroes'].map(section => (
-              <Tab key={section} eventKey={section} title={section.charAt(0).toUpperCase() + section.slice(1)}>
-                <div className="mt-3">
-                  <div
-                    className={`rounded p-5 text-center mb-4 ${isDarkMode ? 'bg-secondary' : 'bg-light'}`}
-                    style={{ outline: '2px dashed', outlineOffset: '4px', cursor: 'pointer' }}
-                    onDrop={handleDrop}
-                    onDragOver={(e) => e.preventDefault()}
-                    onClick={() => document.getElementById(`${section}-upload`).click()}
-                  >
-                    <FontAwesomeIcon icon={faUpload} size="2x" className={`text-${isDarkMode ? 'light' : 'secondary'} mb-3`} />
-                    <p className="mb-0">Drag & drop images here or click to upload</p>
-                    <input
-                      id={`${section}-upload`}
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      onChange={handleFileChange}
-                      className="d-none"
-                    />
-                  </div>
-
-                  <Row xs={1} md={2} lg={3} className="g-4">
-                    {images[section].map(image => (
-                      <Col key={image.id}>
-                        <div className="position-relative">
-                          <img
-                            src={URL.createObjectURL(image.file)}
-                            alt={image.name}
-                            className="img-fluid rounded mb-2"
-                            style={{ height: '200px', width: '200px', objectFit: 'cover' }}
-                          />
-                          <Button
-                            variant="danger"
-                            size="sm"
-                            className="position-absolute top-0 end-0 m-2"
-                            onClick={() => removeImage(image.id)}
-                          >
-                            <FontAwesomeIcon icon={faTimes} />
-                          </Button>
-                          <Form.Control
-                            type="text"
-                            value={image.name}
-                            onChange={(e) => handleNameChange(image.id, e.target.value)}
-                          />
-                          {section === 'heroes' && (
-                            <Form.Control
-                              as="select"
-                              value={image.role}
-                              onChange={(e) => handleRoleChange(image.id, e.target.value)}
-                            >
-                              <option value="">Select a role</option>
-                              {images.roles.map((role, index) => (
-                                <option key={index} value={role.name}>
-                                  {role.name}
-                                </option>
-                              ))}
-                            </Form.Control>
-                          )}
-                        </div>
-                      </Col>
-                    ))}
-                  </Row>
-                </div>
-              </Tab>
-            ))}
-          </Tabs>
-
-          {/* Export Options */}
-          <div className="pt-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h5 className="mb-0">Export Sections</h5>
+      <Container className={`py-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+        <Card className={`shadow ${isDarkMode ? 'bg-secondary text-white' : 'bg-white text-dark'}`}>
+          <Card.Header className={`${isDarkMode ? 'bg-dark text-white' : 'bg-primary text-white'}`}>
+            <div className="d-flex justify-content-between align-items-center">
+              <h4 className="mb-0">
+                <FontAwesomeIcon icon={faFileCirclePlus} className="me-2" />
+                Esports DashBoard Config Builder</h4>
 
             </div>
-            <Row xs={2} md={6} className="g-3">
-              {Object.entries(selectedSections).map(([section, isSelected]) => (
-                <Col key={section}>
-                  <Form.Check
-                    style={{ width: '100px' }}
-                    type="switch"
-                    id={`${section}-toggle`}
-                    label={section.charAt(0).toUpperCase() + section.slice(1)}
-                    checked={isSelected}
-                    onChange={(e) => setSelectedSections(prev => ({
-                      ...prev,
-                      [section]: e.target.checked
-                    }))}
+          </Card.Header>
+          <Card.Body>
+            {/* Metadata Section */}
+            <Row className="mb-4">
+              <Col md={4}>
+                <Form.Group>
+                  <Form.Label>
+                    <FontAwesomeIcon icon={faUser} className="me-2" />
+                    Author
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={configMeta.author}
+                    onChange={(e) => setConfigMeta(prev => ({ ...prev, author: e.target.value }))}
+                    placeholder="Enter author name"
                   />
-                </Col>
-              ))}
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Group>
+                  <Form.Label>
+                    <FontAwesomeIcon icon={faCode} className="me-2" />
+                    Version
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={configMeta.version}
+                    onChange={(e) => setConfigMeta(prev => ({ ...prev, version: e.target.value }))}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Group>
+                  <Form.Label>
+                    <FontAwesomeIcon icon={faGamepad} className="me-2" />
+                    Game
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={configMeta.game}
+                    onChange={(e) => setConfigMeta(prev => ({ ...prev, game: e.target.value }))}
+                  />
+                </Form.Group>
+              </Col>
             </Row>
 
-            <div className="d-flex align-items-center mt-5">
-              <Button variant="success" onClick={downloadConfig} className="me-2">
-                <FontAwesomeIcon icon={faDownload} className="me-2" />
-                Export XML
-              </Button>
-              <Button variant="primary" onClick={zipConfignFiles}>
-                <FontAwesomeIcon icon={faDownload} className="me-2" />
-                Export Zip
-              </Button>
+            {/* Main Tabs */}
+            <Tabs
+              activeKey={activeTab}
+              onSelect={(k) => setActiveTab(k)}
+              className="mb-4"
+              variant={isDarkMode ? 'pills' : 'tabs'}
+            >
+              {['maps', 'modes', 'roles', 'heroes'].map(section => (
+                <Tab key={section} eventKey={section} title={section.charAt(0).toUpperCase() + section.slice(1)}>
+                  <div className="mt-3">
+                    <div
+                      className={`rounded p-5 text-center mb-4 ${isDarkMode ? 'bg-secondary' : 'bg-light'}`}
+                      style={{ outline: '2px dashed', outlineOffset: '4px', cursor: 'pointer' }}
+                      onDrop={handleDrop}
+                      onDragOver={(e) => e.preventDefault()}
+                      onClick={() => document.getElementById(`${section}-upload`).click()}
+                    >
+                      <FontAwesomeIcon icon={faUpload} size="2x" className={`text-${isDarkMode ? 'light' : 'secondary'} mb-3`} />
+                      <p className="mb-0">Drag & drop images here or click to upload</p>
+                      <input
+                        id={`${section}-upload`}
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="d-none"
+                      />
+                    </div>
+
+                    <Row xs={1} md={2} lg={3} className="g-4">
+                      {images[section].map(image => (
+                        <Col key={image.id}>
+                          <div className="position-relative">
+                            <img
+                              src={URL.createObjectURL(image.file)}
+                              alt={image.name}
+                              className="img-fluid rounded mb-2"
+                              style={{ height: '200px', width: '200px', objectFit: 'cover' }}
+                            />
+                            <Button
+                              variant="danger"
+                              size="sm"
+                              className="position-absolute top-0 end-0 m-2"
+                              onClick={() => removeImage(image.id)}
+                            >
+                              <FontAwesomeIcon icon={faTimes} />
+                            </Button>
+                            <Form.Control
+                              type="text"
+                              value={image.name}
+                              onChange={(e) => handleNameChange(image.id, e.target.value)}
+                            />
+                            {section === 'heroes' && (
+                              <Form.Control
+                                as="select"
+                                value={image.role}
+                                onChange={(e) => handleRoleChange(image.id, e.target.value)}
+                              >
+                                <option value="">Select a role</option>
+                                {images.roles.map((role, index) => (
+                                  <option key={index} value={role.name}>
+                                    {role.name}
+                                  </option>
+                                ))}
+                              </Form.Control>
+                            )}
+                          </div>
+                        </Col>
+                      ))}
+                    </Row>
+                  </div>
+                </Tab>
+              ))}
+            </Tabs>
+
+            {/* Export Options */}
+            <div className="pt-4">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h5 className="mb-0">Export Sections</h5>
+
+              </div>
+              <Row xs={2} md={6} className="g-3">
+                {Object.entries(selectedSections).map(([section, isSelected]) => (
+                  <Col key={section}>
+                    <Form.Check
+                      style={{ width: '100px' }}
+                      type="switch"
+                      id={`${section}-toggle`}
+                      label={section.charAt(0).toUpperCase() + section.slice(1)}
+                      checked={isSelected}
+                      onChange={(e) => setSelectedSections(prev => ({
+                        ...prev,
+                        [section]: e.target.checked
+                      }))}
+                    />
+                  </Col>
+                ))}
+              </Row>
+
+              <div className="d-flex align-items-center mt-5">
+                <Button variant="success" onClick={downloadConfig} className="me-2">
+                  <FontAwesomeIcon icon={faDownload} className="me-2" />
+                  Export XML
+                </Button>
+                <Button variant="primary" onClick={zipConfignFiles}>
+                  <FontAwesomeIcon icon={faDownload} className="me-2" />
+                  Export Zip
+                </Button>
+              </div>
             </div>
-          </div>
-        </Card.Body>
-      </Card>
-    </Container>
+          </Card.Body>
+        </Card>
+      </Container>
   );
 };
 

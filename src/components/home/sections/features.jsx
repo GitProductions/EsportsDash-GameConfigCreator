@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
 import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faFilm, faRedoAlt, faCloud } from '@fortawesome/free-solid-svg-icons';
+import { ThemeContext } from '../../../context/ThemeContext';
 
+const Features = () => {
+  const { isDarkMode } = useContext(ThemeContext);
 
-
-  const Features = () => (
-    <Container className="py-5">
-    <h2 className="text-center mb-5">Why Choose Esports Dashboard?</h2>
-    <Row>
+  return (
+    <Container className={`py-5 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+      <h2 className="text-center mb-5">Why Choose Esports Dashboard?</h2>
+      <Row>
         <Feature
             icon={faKeyboard}
             title="Hotkeys Support"
@@ -60,25 +62,23 @@ import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faF
             title="Tournament Ready"
             description="Export and import configurations designed specifically for competitive tournament play."
         />
+      </Row>
+    </Container>
+  );
+};
 
-    </Row>
-</Container>
-
-    );
-
-    const Feature = ({ icon, title, description }) => (
-      <Col xs={12} md={6} lg={3} className="mb-4">
-        <Card className="h-100 shadow-sm hover-card border-0">
-          <Card.Body className="text-center p-4">
-            <div className="feature-icon mb-3">
-              <FontAwesomeIcon icon={icon} size="2x" className="text-primary" />
-            </div>
-            <h3 className="h5 mb-3">{title}</h3>
-            <p className="text-muted mb-0">{description}</p>
-          </Card.Body>
-        </Card>
-      </Col>
-    );
-
+const Feature = ({ icon, title, description }) => (
+  <Col xs={12} md={6} lg={3} className="mb-4">
+    <Card className="h-100 shadow-sm hover-card border-0">
+      <Card.Body className="text-center p-4">
+        <div className="feature-icon mb-3">
+          <FontAwesomeIcon icon={icon} size="2x" className="text-primary" />
+        </div>
+        <h3 className="h5 mb-3">{title}</h3>
+        <p className="text-muted mb-0">{description}</p>
+      </Card.Body>
+    </Card>
+  </Col>
+);
 
 export default Features;

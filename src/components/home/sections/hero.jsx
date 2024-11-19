@@ -1,16 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faDownload, } from '@fortawesome/free-solid-svg-icons';
 import Carousel from 'react-bootstrap/Carousel';
 
+import { ThemeContext } from '../../../context/ThemeContext';
+
 
 const Hero = ({ onSelect }) => {
+    const { isDarkMode } = useContext(ThemeContext);
+
     const totalImages = 10;
     const fadeInterval = 3000;
 
     return (
-        <div className="bg-primary text-white py-5">
+        // <div className="bg-primary text-white py-5">
+        <div
+         className={` text-${isDarkMode ? 'white' : 'dark'} py-5`}
+         style={{ backgroundColor: isDarkMode ? '#0384fc' : '#dedede' }}
+         >
             <Container className="py-5 px-sm-0 px-lg-5">
                 <Row className="align-items-center">
                     <Col lg={6}>
@@ -22,7 +30,8 @@ const Hero = ({ onSelect }) => {
                         </p>
                         <div className="d-flex gap-3">
                             <Button
-                                variant="light"
+                                // variant="light"
+                                variant={isDarkMode ? 'outline-light' : 'outline-dark'}
                                 size="lg"
                                 onClick={() => onSelect('configBuilder')}
                             >
@@ -30,7 +39,8 @@ const Hero = ({ onSelect }) => {
                                 Build Config
                             </Button>
                             <Button
-                                variant="outline-light"
+                                // variant="outline-light"
+                                variant={isDarkMode ? 'outline-light' : 'outline-dark'}
                                 size="lg"
                                 onClick={() => onSelect('gameConfigExplorer')}
                             >

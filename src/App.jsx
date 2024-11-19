@@ -13,7 +13,8 @@ import Header from './Header';
 import Footer from './Footer';
 import Downloads from './components/downloads/downloads';
 
-
+import { ThemeProvider } from './context/ThemeContext';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   const [selectedComponent, setSelectedComponent] = useState('home');
@@ -38,13 +39,17 @@ function App() {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Header onSelect={setSelectedComponent} selectedComponent={selectedComponent} />
-      <main className="renderComp flex-grow-1 fade-in">
-        {renderComponent()}
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      {/* <Router> */}
+        <div className="d-flex flex-column min-vh-100">
+          <Header onSelect={setSelectedComponent} selectedComponent={selectedComponent} />
+          <main className="renderComp flex-grow-1 fade-in">
+            {renderComponent()}
+          </main>
+          <Footer />
+        </div>
+      {/* </Router> */}
+    </ThemeProvider>
   );
 }
 

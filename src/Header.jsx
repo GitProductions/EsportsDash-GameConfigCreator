@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { Navbar, Nav, Container, Row, Col, Button } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Navbar, Nav, Container, Row, Col, Button, } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad} from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { ThemeContext } from './context/ThemeContext';
 
-const Header = ({ onSelect, selectedComponent }) => (
-    <Navbar bg="dark" variant="dark" expand="lg" className="py-3 shadow-sm">
+
+function Header({ onSelect, selectedComponent }) {
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  return (
+
+    // <Navbar bg="dark" variant="dark" expand="lg" className="py-3 shadow-sm">
+    <Navbar bg={isDarkMode ? 'dark' : 'light'} variant={isDarkMode ? 'dark' : 'light'} expand="lg" className="py-3 shadow-sm">
       <Container>
         <Navbar.Brand href="/" className="d-flex align-items-center">
           <FontAwesomeIcon icon={faGamepad} className="me-2 " />
@@ -37,11 +44,18 @@ const Header = ({ onSelect, selectedComponent }) => (
             >
               Download
             </Nav.Link>
-            
+
           </Nav>
         </Navbar.Collapse>
+
+        <Button variant={isDarkMode ? 'dark' : 'light'} onClick={toggleDarkMode}>
+          {/* {isDarkMode ? 'Light Mode' : 'Dark Mode'} */}
+          <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
+        </Button>
       </Container>
     </Navbar>
-  );
 
-export default Header;
+  )
+}
+
+export default Header
