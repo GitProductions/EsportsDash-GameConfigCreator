@@ -28,15 +28,6 @@ const ConfigBuilder = () => {
     version: '1.0',
     author: ''
   });
-  // const [isDarkMode, setIsDarkMode] = useState(false);
-
-  // const toggleDarkMode = () => {
-  //   setIsDarkMode(prevMode => !prevMode);
-  // };
-
-  useEffect(() => {
-    document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
-  }, [isDarkMode]);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -168,7 +159,7 @@ const ConfigBuilder = () => {
 
             </div>
           </Card.Header>
-          <Card.Body>
+          <Card.Body className={isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}>
             {/* Metadata Section */}
             <Row className="mb-4">
               <Col md={4}>
@@ -218,10 +209,21 @@ const ConfigBuilder = () => {
               activeKey={activeTab}
               onSelect={(k) => setActiveTab(k)}
               className="mb-4"
-              variant={isDarkMode ? 'pills' : 'tabs'}
+              // variant={isDarkMode ? 'pills' : 'tabs'}
+              style={{ borderBottom: '1px solid', borderColor: isDarkMode ? '#ffffff' : '#6c757d', color: isDarkMode ? '#ffffff' : '#6c757d' }}
+
             >
               {['maps', 'modes', 'roles', 'heroes'].map(section => (
-                <Tab key={section} eventKey={section} title={section.charAt(0).toUpperCase() + section.slice(1)}>
+                <Tab
+                  
+                  key={section}
+                  eventKey={section}
+                  // title={<span className={isDarkMode ? 'text-dark' : 'text-dark'}>{section.charAt(0).toUpperCase() + section.slice(1)}</span>}
+                  // title={section.charAt(0).toUpperCase() + section.slice(1)}
+                  
+                  title={`${section.charAt(0).toUpperCase()}${section.slice(1)} `}
+                  // className={isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}
+                >
                   <div className="mt-3">
                     <div
                       className={`rounded p-5 text-center mb-4 ${isDarkMode ? 'bg-secondary' : 'bg-light'}`}

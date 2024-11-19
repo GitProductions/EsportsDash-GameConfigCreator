@@ -14,6 +14,8 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
+    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Row, Col} from 'react-bootstrap';
 
-const About = () => (
+import { ThemeContext } from '../../../context/ThemeContext';
+
+function About() {
+    const { isDarkMode } = useContext(ThemeContext);
+  return (
     <div className="about-section py-5 bg-light">
+     {/* <div className={`about-section py-5 ${isDarkMode ? 'bg-light text-white' : 'bg-light text-dark'}`}> */}
     <Container>
         <Row className="text-center">
             <Col md={6} className="mb-5">
@@ -43,7 +48,7 @@ const About = () => (
     </Container>
 
 </div>
+  )
+}
 
-    );
-
-export default About;
+export default About

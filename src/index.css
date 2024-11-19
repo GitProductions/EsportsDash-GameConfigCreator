@@ -7,11 +7,43 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  --tab-color: #000000;
+  --tab-active-color: rgb(31, 31, 31);
+  --tab-hover-color: rgb(14, 117, 201);
+  --tab-border-color: rgb(14, 117, 201);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+}
+
+
+
+
+[data-theme='dark'] {
+  --tab-color: #ffffff;
+  --tab-active-color: rgb(31, 31, 31);
+  --tab-hover-color: rgb(14, 117, 201);
+  --tab-border-color: rgb(14, 117, 201);
+}
+
+.nav-tabs .nav-link {
+  color: var(--tab-color) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom: solid 4px var(--tab-border-color) !important;
+  color: var(--tab-active-color) !important;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--tab-hover-color) !important;
+  border-bottom: none;
 }
 
 

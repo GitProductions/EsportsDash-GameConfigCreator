@@ -1,15 +1,18 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Alert, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faFileCode, faHome, faDownload, faGamepad, faCode } from '@fortawesome/free-solid-svg-icons';
+
+import { ThemeContext } from '../context/ThemeContext';
 
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
 
 const GameConfigExplorer = () => {
+  const { isDarkMode } = useContext(ThemeContext);
   const [view, setView] = useState("menu");
   const [folders, setFolders] = useState([]);
   const [files, setFiles] = useState([]);
@@ -18,7 +21,7 @@ const GameConfigExplorer = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const isDarkMode = false;
+
 
   const githubRepoPath = "https://api.github.com/repos/GitProductions/EsportsDashBoard/contents";
   const githubImages = "https://raw.githubusercontent.com/GitProductions/EsportsDashBoard/main/Game%20Configs"
@@ -102,12 +105,14 @@ const GameConfigExplorer = () => {
           </h4>
 
         </Card.Header>
-        <Card.Body className="px-4 pt-3">
+        {/* <Card.Body className="px-4 pt-3"> */}
+        <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-light text-dark':'bg-dark text-white' }`}>
           <p className="lead mb-4">Select a category to explore:</p>
           <Row className="justify-content-center g-4">
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
-                <Card.Body className="d-flex flex-column">
+                {/* <Card.Body className="d-flex flex-column"> */}
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark':'bg-dark text-white' }`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faGamepad} className="me-2" />
                     Game Configs
@@ -124,7 +129,8 @@ const GameConfigExplorer = () => {
             </Col>
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
-                <Card.Body className="d-flex flex-column">
+                {/* <Card.Body className="d-flex flex-column"> */}
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark':'bg-dark text-white' }`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faCode} className="me-2" />
                     HTML Packs
