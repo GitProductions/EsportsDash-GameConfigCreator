@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faDownload, } from '@fortawesome/free-solid-svg-icons';
@@ -6,14 +6,13 @@ import Carousel from 'react-bootstrap/Carousel';
 import { useNavigate } from 'react-router-dom';
 
 import { ThemeContext } from '../../../context/ThemeContext';
+import { useNavbar } from '../../../context/NavigationContext';
 
-import { useNavigation } from '../../../context/NavigationContext';
 
-
-const Hero = ({ onSelect }) => {
+const Hero = () => {
     const { isDarkMode } = useContext(ThemeContext);
 
-    const { setSelectedPage } = useNavigation();
+    const { setSelectedPage } = useNavbar();
     const navigate = useNavigate();
 
     const handleNavigation = (page) => {
@@ -25,11 +24,10 @@ const Hero = ({ onSelect }) => {
     const fadeInterval = 3000;
 
     return (
-        // <div className="bg-primary text-white py-5">
         <div
-         className={` text-${isDarkMode ? 'white' : 'dark'} py-5`}
-         style={{ backgroundColor: isDarkMode ? '#0384fc' : '#dedede' }}
-         >
+            className={` text-${isDarkMode ? 'white' : 'dark'} py-5`}
+            style={{ backgroundColor: isDarkMode ? '#0384fc' : '#dedede' }}
+        >
             <Container className="py-5 px-sm-0 px-lg-5">
                 <Row className="align-items-center">
                     <Col lg={6}>
@@ -74,7 +72,7 @@ const Hero = ({ onSelect }) => {
 
                         </Carousel>
                     </Col>
-                    
+
                 </Row>
             </Container>
         </div>

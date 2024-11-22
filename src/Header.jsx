@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { ThemeContext } from './context/ThemeContext';
 import { Link, useLocation } from 'react-router-dom';
-import { useNavigation } from './context/NavigationContext';
+import { useNavbar } from './context/NavigationContext';
 
 function Header() {
-  const { selectedPage, setSelectedPage } = useNavigation();
+  const { selectedPage, setSelectedPage } = useNavbar();
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
   const location = useLocation();
 

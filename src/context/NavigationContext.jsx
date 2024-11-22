@@ -13,4 +13,4 @@ export function NavigationProvider({ children }) {
   );
 }
 
-export const useNavigation = () => useContext(NavigationContext);
+export const useNavbar = () => useContext(NavigationContext);
