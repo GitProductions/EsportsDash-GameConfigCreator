@@ -3,12 +3,23 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faDownload, } from '@fortawesome/free-solid-svg-icons';
 import Carousel from 'react-bootstrap/Carousel';
+import { useNavigate } from 'react-router-dom';
 
 import { ThemeContext } from '../../../context/ThemeContext';
+
+import { useNavigation } from '../../../context/NavigationContext';
 
 
 const Hero = ({ onSelect }) => {
     const { isDarkMode } = useContext(ThemeContext);
+
+    const { setSelectedPage } = useNavigation();
+    const navigate = useNavigate();
+
+    const handleNavigation = (page) => {
+        setSelectedPage(page);
+        navigate(`/${page}`);
+    };
 
     const totalImages = 10;
     const fadeInterval = 3000;
@@ -30,19 +41,17 @@ const Hero = ({ onSelect }) => {
                         </p>
                         <div className="d-flex gap-3">
                             <Button
-                                // variant="light"
                                 variant={isDarkMode ? 'outline-light' : 'outline-dark'}
                                 size="lg"
-                                onClick={() => onSelect('config-builder')}
+                                onClick={() => handleNavigation('config-builder')}
                             >
                                 <FontAwesomeIcon icon={faCog} className="me-2" />
                                 Build Config
                             </Button>
                             <Button
-                                // variant="outline-light"
                                 variant={isDarkMode ? 'outline-light' : 'outline-dark'}
                                 size="lg"
-                                onClick={() => onSelect('config-explorer')}
+                                onClick={() => handleNavigation('config-explorer')}
                             >
                                 <FontAwesomeIcon icon={faDownload} className="me-2" />
                                 Explore Configs
@@ -55,8 +64,8 @@ const Hero = ({ onSelect }) => {
                             {[...Array(totalImages)].map((_, index) => (
                                 <Carousel.Item key={index}>
                                     <img
-                                        // src={`${import.meta.env.BASE_URL}/images/${index + 1}.png`}
-                                        src={`/images/${index + 1}.png`}
+                                        src={`${import.meta.env.BASE_URL}/images/${index + 1}.png`}
+                                        // src={`/images/${index + 1}.png`}
                                         alt={`Slide ${index + 1}`}
                                         className="img-fluid rounded shadow-lg"
                                     />

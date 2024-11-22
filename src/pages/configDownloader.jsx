@@ -185,28 +185,18 @@ const GameConfigExplorer = () => {
                     onClick={() => handleCardClick(folder.name)}
                   >
 
-                    {/* lets set up lazyloading */}
-
                     <LazyLoadImage
-                      // alt={image.alt}
-                      // height={image.height}
-                      // src={image.src} // use normal <img> attributes as props
-                      // width={image.width} 
                       effect="blur"
                       src={`${githubImages}/${folder.name}/${folder.name}.png`}
                       alt={folder.name}
                       className="mb-3 rounded"
                       style={{ width: "150px", height: "150px" }}
+                      wrapperProps={{
+                        style: {transitionDelay: "0.3s"},
+                    }}
                       visibleByDefault={true}
-
                     />
 
-
-                    {/* <Image src={`${githubImages}/${folder.name}/${folder.name}.png`} alt={folder.name}
-                      className="mb-3 rounded"
-                      style={{ width: "150px", height: "150px" }}
-                      // loading='lazy'
-                    /> */}
                   </Card.Body>
                   <Card.Footer className={`text-center ${selectedCard === folder.name ? 'bg-primary text-white' : ''}`}>
                     <h5 className="text-center">
