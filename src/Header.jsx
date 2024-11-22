@@ -17,10 +17,14 @@ function Header() {
     setSelectedPage(path);
   }, [location, setSelectedPage]);
 
+  const handleBrandClick = () => {
+    setSelectedPage('home');
+  };
+
   return (
     <Navbar bg={isDarkMode ? 'dark' : 'light'} variant={isDarkMode ? 'dark' : 'light'} expand="lg" className="py-3">
       <Container>
-        <Navbar.Brand href="/" className="d-flex align-items-center">
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center" onClick={handleBrandClick}>
           <FontAwesomeIcon icon={faGamepad} className="me-2 " />
           Esports Dashboard
         </Navbar.Brand>
