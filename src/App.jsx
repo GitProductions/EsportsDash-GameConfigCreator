@@ -26,6 +26,8 @@ function AppContent({ selectedComponent, setSelectedComponent }) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // ${import.meta.env.BASE_URL}
+
   // Sync route with selected component
   useEffect(() => {
     switch (selectedComponent) {
@@ -39,7 +41,9 @@ function AppContent({ selectedComponent, setSelectedComponent }) {
         navigate('/download');
         break;
       default:
-        navigate('/');
+        // navigate('/');
+          // ${import.meta.env.BASE_URL}
+        navigate(`${import.meta.env.BASE_URL}`);
     }
   }, [selectedComponent, navigate]);
 
