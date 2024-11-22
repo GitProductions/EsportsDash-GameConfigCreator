@@ -41,9 +41,7 @@ function AppContent({ selectedComponent, setSelectedComponent }) {
         navigate('/download');
         break;
       default:
-        // navigate('/');
-          // ${import.meta.env.BASE_URL}
-        navigate(`${import.meta.env.BASE_URL}`);
+        navigate('/');
     }
   }, [selectedComponent, navigate]);
 
