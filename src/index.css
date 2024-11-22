@@ -7,6 +7,10 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+
+  --card-bg-color: #2b2b2b;
+  --card-text-color: #ffffff;
+  
   --tab-color: #000000;
   --tab-active-color: rgb(31, 31, 31);
   --tab-hover-color: rgb(14, 117, 201);
@@ -23,11 +27,24 @@
 
 
 [data-theme='dark'] {
+  /* --link-color: #d0ff00;  */
+  --card-bg-color: #ffffff;
+
+  /* card text color doesnt seem to be applying to the card? without !important */ 
+  --card-text-color: #000000;  
+
   --tab-color: #ffffff;
   --tab-active-color: rgb(31, 31, 31);
   --tab-hover-color: rgb(14, 117, 201);
   --tab-border-color: rgb(14, 117, 201);
 }
+
+/* lets target card bodies */
+/* .card-body {
+  color: var(--card-text-color)!important;
+  background-color: var(--card-bg-color);
+} */
+
 
 .nav-tabs .nav-link {
   color: var(--tab-color) !important;

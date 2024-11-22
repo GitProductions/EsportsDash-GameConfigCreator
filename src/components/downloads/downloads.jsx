@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Container, Card, Badge, Button, Alert, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -10,10 +10,14 @@ import {
   faArchive
 } from '@fortawesome/free-solid-svg-icons';
 
+import { ThemeContext } from '../../context/ThemeContext';
+
 const Downloads = () => {
   const [releases, setReleases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const {isDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchReleases = async () => {
@@ -75,7 +79,8 @@ const Downloads = () => {
           <FontAwesomeIcon icon={faArchive} className="me-3" />
           Software Releases
         </h1>
-        <p className="lead text-muted">
+        {/* <p className="lead text-muted"> */}
+        <p className={`lead ${isDarkMode ? 'text-light' : 'text-muted'}`}>
           Download the latest versions and updates for Esports Dashboard
         </p>
       </div>
@@ -86,6 +91,7 @@ const Downloads = () => {
         releases.map((release) => (
           <Card key={release.id} className="mb-4 shadow-sm hover-card">
             <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
+            {/* <Card.Header className={`bg-${isDarkMode ? 'dark' : 'primary'} text-white d-flex justify-content-between align-items-center`}> */}
               <h2 className="h5 mb-0">
                 {release.name || release.tag_name}
                 <Badge bg="light" text="dark" className="ms-2">
@@ -109,7 +115,8 @@ const Downloads = () => {
               </Button>
             </Card.Header>
             
-            <Card.Body>
+            {/* <Card.Body> */}
+            <Card.Body >
               <div className="mb-3">
                 <small className="text-muted">
                   <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
@@ -119,11 +126,11 @@ const Downloads = () => {
 
               {release.body && (
                 <div className="mb-4">
-                  <h3 className="h6 text-muted mb-2">
+                  <h3 className="h6 mb-2">
                     <FontAwesomeIcon icon={faFileAlt} className="me-2" />
                     Release Notes
                   </h3>
-                  <Card.Text className="text-muted" style={{ whiteSpace: 'pre-line' }}>
+                  <Card.Text className="" style={{ whiteSpace: 'pre-line' }}>
                     {release.body}
                   </Card.Text>
                 </div>
@@ -131,7 +138,7 @@ const Downloads = () => {
 
               {release.assets && release.assets.length > 0 && (
                 <div>
-                  <h3 className="h6 text-muted mb-3">
+                  <h3 className="h6 mb-3">
                     <FontAwesomeIcon icon={faDownload} className="me-2" />
                     Downloads
                   </h3>

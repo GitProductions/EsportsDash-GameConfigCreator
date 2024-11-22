@@ -1,55 +1,98 @@
-import React, { useState } from 'react';
-import { Navbar, Nav, Container, Row, Col, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
-import './index.css'
-
-import GameConfigExplorer from './components/configDownloader';
-import ConfigBuilder from './components/configCreator';
-import Home from './components/home/home';
-
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import GameConfigExplorer from './pages/configDownloader';
+import ConfigBuilder from './pages/configCreator';
+import Home from './pages/home/home';
 import Header from './Header';
 import Footer from './Footer';
 import Downloads from './components/downloads/downloads';
-
-import { ThemeProvider } from './context/ThemeContext';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './App.css';
+import './index.css';
 
 function App() {
   const [selectedComponent, setSelectedComponent] = useState('home');
 
-  const renderComponent = () => {
+  return (
+    <BrowserRouter>
+      <AppContent 
+        selectedComponent={selectedComponent} 
+        setSelectedComponent={setSelectedComponent} 
+      />
+    </BrowserRouter>
+  );
+}
+
+function AppContent({ selectedComponent, setSelectedComponent }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Sync route with selected component
+  useEffect(() => {
     switch (selectedComponent) {
       case 'configBuilder':
-        // fadeInComponent();
-        return <ConfigBuilder />;
+        navigate('/configBuilder');
+        break;
       case 'gameConfigExplorer':
-        // fadeInComponent();
-        return <GameConfigExplorer />;
-
+        navigate('/gameConfigExplorer');
+        break;
       case 'download':
-        // fadeInComponent();
-        return <Downloads />;
+        navigate('/download');
+        break;
       default:
-        // fadeInComponent();
-        return <Home onSelect={setSelectedComponent} />;
+        navigate('/');
     }
-    
-  };
+  }, [selectedComponent, navigate]);
+
+  // Sync selected component with route
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/configBuilder':
+        setSelectedComponent('configBuilder');
+        break;
+      case '/gameConfigExplorer':
+        setSelectedComponent('gameConfigExplorer');
+        break;
+      case '/download':
+        setSelectedComponent('download');
+        break;
+      default:
+        setSelectedComponent('home');
+    }
+  }, [location.pathname, setSelectedComponent]);
 
   return (
-    <ThemeProvider>
-      {/* <Router> */}
-        <div className="d-flex flex-column min-vh-100">
-          <Header onSelect={setSelectedComponent} selectedComponent={selectedComponent} />
-          <main className="renderComp flex-grow-1 fade-in">
-            {renderComponent()}
-          </main>
-          <Footer />
-        </div>
-      {/* </Router> */}
-    </ThemeProvider>
+    <div className="d-flex flex-column min-vh-100">
+      <Header
+        onSelect={setSelectedComponent}
+        selectedComponent={selectedComponent}
+      />
+      <main className="renderComp flex-grow-1 fade-in">
+        <Routes>
+          <Route 
+            path="/" 
+            element={<Home onSelect={setSelectedComponent} />} 
+          />
+          <Route 
+            path="/configBuilder" 
+            element={<ConfigBuilder />} 
+          />
+          <Route 
+            path="/gameConfigExplorer" 
+            element={<GameConfigExplorer />} 
+          />
+          <Route 
+            path="/download" 
+            element={<Downloads />} 
+          />
+          {/* Redirect any unknown routes to home */}
+          <Route 
+            path="*" 
+            element={<Navigate to="/" replace />} 
+          />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 

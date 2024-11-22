@@ -160,6 +160,7 @@ const ConfigBuilder = () => {
             </div>
           </Card.Header>
           <Card.Body className={isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}>
+          {/* <Card.Body className={'bg-light text-dark'}> */}
             {/* Metadata Section */}
             <Row className="mb-4">
               <Col md={4}>

@@ -7,7 +7,7 @@ import Hero from './sections/hero';
 const Home = ({ onSelect }) => (
     <>
         {/* Hero Section */}
-        <Hero onSelect={onSelect} />
+        <Hero  />
 
         {/* About Section */}
         <About />
