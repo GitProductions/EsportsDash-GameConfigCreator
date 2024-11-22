@@ -29,11 +29,11 @@ function AppContent({ selectedComponent, setSelectedComponent }) {
   // Sync route with selected component
   useEffect(() => {
     switch (selectedComponent) {
-      case 'configBuilder':
-        navigate('/configBuilder');
+      case 'config-builder':
+        navigate('/config-builder');
         break;
-      case 'gameConfigExplorer':
-        navigate('/gameConfigExplorer');
+      case 'config-explorer':
+        navigate('/config-explorer');
         break;
       case 'download':
         navigate('/download');
@@ -46,11 +46,11 @@ function AppContent({ selectedComponent, setSelectedComponent }) {
   // Sync selected component with route
   useEffect(() => {
     switch (location.pathname) {
-      case '/configBuilder':
-        setSelectedComponent('configBuilder');
+      case '/config-builder':
+        setSelectedComponent('config-builder');
         break;
-      case '/gameConfigExplorer':
-        setSelectedComponent('gameConfigExplorer');
+      case '/config-explorer':
+        setSelectedComponent('config-explorer');
         break;
       case '/download':
         setSelectedComponent('download');
@@ -73,11 +73,11 @@ function AppContent({ selectedComponent, setSelectedComponent }) {
             element={<Home onSelect={setSelectedComponent} />} 
           />
           <Route 
-            path="/configBuilder" 
+            path="/config-builder" 
             element={<ConfigBuilder />} 
           />
           <Route 
-            path="/gameConfigExplorer" 
+            path="/config-explorer" 
             element={<GameConfigExplorer />} 
           />
           <Route 

@@ -27,19 +27,19 @@ function Header({ onSelect, selectedComponent }) {
               Home
             </Nav.Link>
             <Nav.Link
-              active={selectedComponent === 'configBuilder'}
-              onClick={() => onSelect('configBuilder')}
+              active={selectedComponent === 'config-builder'}
+              onClick={() => onSelect('config-builder')}
             >
               Config Builder
             </Nav.Link>
             <Nav.Link
-              active={selectedComponent === 'gameConfigExplorer'}
-              onClick={() => onSelect('gameConfigExplorer')}
+              active={selectedComponent === 'config-explorer'}
+              onClick={() => onSelect('config-explorer')}
             >
               Asset Explorer
             </Nav.Link>
             <Nav.Link
-              active={selectedComponent === 'Download'}
+              active={selectedComponent === 'download'}
               onClick={() => onSelect('download')}
             >
               Download

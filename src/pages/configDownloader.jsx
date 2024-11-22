@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Alert, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faFileCode, faHome, faDownload, faGamepad, faCode } from '@fortawesome/free-solid-svg-icons';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { ThemeContext } from '../context/ThemeContext';
 
@@ -54,7 +55,7 @@ const GameConfigExplorer = () => {
   };
 
   const fetchFiles = async (folderPath) => {
-    setLoading(true);
+    //setLoading(true);
     setError(null);
     try {
       const url = `${githubRepoPath}/${folderPath}`;
@@ -66,12 +67,12 @@ const GameConfigExplorer = () => {
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      //setLoading(false);
     }
   };
 
   const fetchFolders = async (repoPath) => {
-    setLoading(true);
+    //setLoading(true);
     setError(null);
     try {
       const url = `${githubRepoPath}/${repoPath}`;
@@ -91,7 +92,7 @@ const GameConfigExplorer = () => {
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      //setLoading(false);
     }
   };
 
@@ -106,13 +107,13 @@ const GameConfigExplorer = () => {
 
         </Card.Header>
         {/* <Card.Body className="px-4 pt-3"> */}
-        <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-light text-dark':'bg-dark text-white' }`}>
+        <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
           <p className="lead mb-4">Select a category to explore:</p>
           <Row className="justify-content-center g-4">
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
                 {/* <Card.Body className="d-flex flex-column"> */}
-                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark':'bg-dark text-white' }`}>
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faGamepad} className="me-2" />
                     Game Configs
@@ -130,7 +131,7 @@ const GameConfigExplorer = () => {
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
                 {/* <Card.Body className="d-flex flex-column"> */}
-                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark':'bg-dark text-white' }`}>
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faCode} className="me-2" />
                     HTML Packs
@@ -182,10 +183,29 @@ const GameConfigExplorer = () => {
                     className={`d-flex flex-column align-items-center justify-content-center h-100 ${selectedCard === folder.name ? 'border border-primary' : ''} `}
                     onClick={() => handleCardClick(folder.name)}
                   >
-                    <Image src={`${githubImages}/${folder.name}/${folder.name}.png`} alt={folder.name}
+
+                    {/* lets set up lazyloading */}
+
+                    <LazyLoadImage
+                      // alt={image.alt}
+                      // height={image.height}
+                      // src={image.src} // use normal <img> attributes as props
+                      // width={image.width} 
+                      effect="blur"
+                      src={`${githubImages}/${folder.name}/${folder.name}.png`}
+                      alt={folder.name}
                       className="mb-3 rounded"
                       style={{ width: "150px", height: "150px" }}
+                      visibleByDefault={true}
+
                     />
+
+
+                    {/* <Image src={`${githubImages}/${folder.name}/${folder.name}.png`} alt={folder.name}
+                      className="mb-3 rounded"
+                      style={{ width: "150px", height: "150px" }}
+                      // loading='lazy'
+                    /> */}
                   </Card.Body>
                   <Card.Footer className={`text-center ${selectedCard === folder.name ? 'bg-primary text-white' : ''}`}>
                     <h5 className="text-center">
@@ -270,11 +290,11 @@ const GameConfigExplorer = () => {
                       rel="noopener noreferrer"
                       className="mt-auto"
                     > */}
-                                  <Button
-                  variant="primary"
-                  onClick={() => downloadFolder(folder.url, folder.name)}
-                  className="mt-auto"
-                >
+                    <Button
+                      variant="primary"
+                      onClick={() => downloadFolder(folder.url, folder.name)}
+                      className="mt-auto"
+                    >
                       <FontAwesomeIcon icon={faDownload} className="me-2" />
                       Download Folder
                     </Button>

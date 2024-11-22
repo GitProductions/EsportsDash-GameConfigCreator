@@ -33,7 +33,7 @@ const Hero = ({ onSelect }) => {
                                 // variant="light"
                                 variant={isDarkMode ? 'outline-light' : 'outline-dark'}
                                 size="lg"
-                                onClick={() => onSelect('configBuilder')}
+                                onClick={() => onSelect('config-builder')}
                             >
                                 <FontAwesomeIcon icon={faCog} className="me-2" />
                                 Build Config
@@ -42,7 +42,7 @@ const Hero = ({ onSelect }) => {
                                 // variant="outline-light"
                                 variant={isDarkMode ? 'outline-light' : 'outline-dark'}
                                 size="lg"
-                                onClick={() => onSelect('gameConfigExplorer')}
+                                onClick={() => onSelect('config-explorer')}
                             >
                                 <FontAwesomeIcon icon={faDownload} className="me-2" />
                                 Explore Configs
