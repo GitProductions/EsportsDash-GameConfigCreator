@@ -55,8 +55,8 @@ const Hero = ({ onSelect }) => {
                             {[...Array(totalImages)].map((_, index) => (
                                 <Carousel.Item key={index}>
                                     <img
-                                        // src={`${import.meta.env.BASE_URL}/images/${index + 1}.png`}
-                                        src={`/images/${index + 1}.png`}
+                                        src={`${import.meta.env.BASE_URL}/images/${index + 1}.png`}
+                                        // src={`/images/${index + 1}.png`}
                                         alt={`Slide ${index + 1}`}
                                         className="img-fluid rounded shadow-lg"
                                     />
