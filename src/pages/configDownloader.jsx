@@ -5,6 +5,7 @@ import { Container, Row, Col, Card, Button, Spinner, Alert, Image } from 'react-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faFileCode, faHome, faDownload, faGamepad, faCode } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { ThemeContext } from '../context/ThemeContext';
 
