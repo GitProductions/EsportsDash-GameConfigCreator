@@ -102,7 +102,7 @@ const CSVReader = ({ onUpload, onHeaders, startRow = 1, sheetGid = "0" }) => {
             setLoading(false);
             return;
           }
-          console.log("Parsed records:", records);
+          // console.log("Parsed records:", records);
           onHeaders(adjustedHeaders); // Pass headers to the parent
           onUpload(records); // Pass parsed data to the parent
           setLoading(false);

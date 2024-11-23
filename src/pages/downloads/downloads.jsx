@@ -26,7 +26,7 @@ const Downloads = () => {
         if (!response.ok) throw new Error("Failed to fetch releases");
         const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
         setReleases(data);
       } catch (err) {
         setError(err.message);

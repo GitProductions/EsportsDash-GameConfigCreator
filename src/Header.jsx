@@ -13,7 +13,6 @@ function Header() {
 
   useEffect(() => {
     const path = location.pathname.substring(1) || 'home';
-    console.log("The Location via header is: ", location);
     setSelectedPage(path);
   }, [location, setSelectedPage]);
 
