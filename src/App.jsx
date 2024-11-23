@@ -7,7 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import PageWrapper from './components/PageWrapper';
 import Downloads from './pages/downloads/downloads';
-import GameConfigExplorer from './pages/configDownloader';
+import AssetExplorer from './pages/assetexplorer/assetExplorer';
 import ConfigBuilder from './pages/configCreator';
 import Home from './pages/home/home';
 
@@ -22,7 +22,7 @@ const RoutesWrapper = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
         <Route path="/config-builder" element={<PageWrapper><ConfigBuilder /></PageWrapper>} />
-        <Route path="/config-explorer" element={<PageWrapper><GameConfigExplorer /></PageWrapper>} />
+        <Route path="/config-explorer" element={<PageWrapper><AssetExplorer /></PageWrapper>} />
         <Route path="/download" element={<PageWrapper><Downloads /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
