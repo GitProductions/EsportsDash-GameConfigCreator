@@ -100,7 +100,7 @@ const GameConfigExplorer = () => {
   const renderMenu = () => (
     <Container className={`py-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
       <Card className={`shadow ${isDarkMode ? 'bg-secondary text-white' : 'bg-white text-dark'}`}>
-        <Card.Header className={`${isDarkMode ? 'bg-dark text-white' : 'bg-primary text-white'}`}>
+        <Card.Header className={`${isDarkMode ? 'bg-primary text-white' : 'bg-light text-dark'}`}>
           <h4 className="mb-0">
             <FontAwesomeIcon icon={faFolder} className="me-2" />
             Dashboard Asset Explorer
@@ -108,7 +108,7 @@ const GameConfigExplorer = () => {
 
         </Card.Header>
         {/* <Card.Body className="px-4 pt-3"> */}
-        <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
+        <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
           <p className="lead mb-4">Select a category to explore:</p>
           <Row className="justify-content-center g-4">
             <Col xs={12} md={6}>
@@ -121,7 +121,7 @@ const GameConfigExplorer = () => {
                 </Card.Header> */}
 
                 {/* <Card.Body className="d-flex flex-column"> */}
-                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-white text-dark' : 'bg-dark text-light'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faGamepad} className="me-2" />
                     Game Configs
@@ -143,7 +143,7 @@ const GameConfigExplorer = () => {
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
                 {/* <Card.Body className="d-flex flex-column"> */}
-                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-white text-dark' : 'bg-dark text-light'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faCode} className="me-2" />
                     HTML Packs
