@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ThemeContext } from '../../../context/ThemeContext';
 import { useNavbar } from '../../../context/NavigationContext';
+import BetaOverlay from '../../../components/BetaOverlay';
 
 
 const Hero = () => {
@@ -25,9 +26,10 @@ const Hero = () => {
 
     return (
         <div
-            className={` text-${isDarkMode ? 'white' : 'dark'} py-5`}
+            className={` text-${isDarkMode ? 'white' : 'dark'} `}
             style={{ backgroundColor: isDarkMode ? '#0384fc' : '#dedede' }}
         >
+              <BetaOverlay />
             <Container className="py-5 px-sm-0 px-lg-5">
                 <Row className="align-items-center">
                     <Col lg={6}>
