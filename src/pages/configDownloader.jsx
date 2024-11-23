@@ -113,12 +113,23 @@ const GameConfigExplorer = () => {
           <Row className="justify-content-center g-4">
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
+                {/* <Card.Header className={`${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
+                <h3 className="h4">
+                    <FontAwesomeIcon icon={faGamepad} className="me-2" />
+                    Game Configs
+                  </h3>
+                </Card.Header> */}
+
                 {/* <Card.Body className="d-flex flex-column"> */}
                 <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faGamepad} className="me-2" />
                     Game Configs
                   </h3>
+
+                  <p className="mb-4">
+                    Download Game Configuration files for use inside of the Dashboard
+                  </p>
                   <Button
                     variant="primary"
                     className="mt-auto"
@@ -137,6 +148,9 @@ const GameConfigExplorer = () => {
                     <FontAwesomeIcon icon={faCode} className="me-2" />
                     HTML Packs
                   </h3>
+                  <p className="mb-4">
+                    Download HTML packs for use inside of OBS, Streamlabs, etc.
+                  </p>
                   <Button
                     variant="primary"
                     className="mt-auto"
@@ -220,8 +234,30 @@ const GameConfigExplorer = () => {
                   <Col key={file.name} xs={12} md={6} lg={4}>
                     <Card className="h-100 shadow-sm hover-card">
                       <Card.Body className="d-flex flex-column">
-                        {/* <Image src={`${githubImages}/${selectedCard}/${selectedCard}.png`} alt={file.name} className="mb-3 rounded" /> */}
-                        <h3 className="h5 mb-3">{file.name}</h3>
+                        {/* <Image 
+                        src={`${githubImages}/${selectedCard}/${selectedCard}.png`}
+                         alt={file.name}
+                          className="mb-3 rounded"
+                          style={{ width: "200px", height: "200px"}}
+                           /> */}
+                        <LazyLoadImage
+                            // effect="blur"
+                            src={`${githubImages}/${selectedCard}/${selectedCard}.png`}
+                            alt={file.name}
+                            className="rounded"
+                            style={{
+                              width: "200px",
+                              height: "200px",
+                              objectFit: "contain"
+                            }}
+                            wrapperClassName="d-flex justify-content-center"
+                            wrapperProps={{
+                              style: { transitionDelay: "0.3s"}
+                            }}
+                            visibleByDefault={true}
+                          />
+                          
+                        <h3 className="h5 mt-3 mb-3">{file.name}</h3>
                         <Button
                           variant="primary"
                           href={file.download_url}
