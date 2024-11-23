@@ -28,13 +28,14 @@ function About() {
                         <AboutSection
                             title="🚀 Active Development"
                             description="Constant updates, bug fixes, and new features based on community feedback to ensure the best experience."
-                            media="https://www.pstcc.edu/media/pstccedu/site-assets/images/PSCC-LOGO-FC-WEB.png" />
+                            // media="https://www.pstcc.edu/media/pstccedu/site-assets/images/PSCC-LOGO-FC-WEB.png" 
+                        />
                     </Col>
                     <Col md={lgColSize} className="mb-5">
                         <AboutSection
                             title="🎮 Freemium Model"
                             description="Start with powerful free features, and unlock premium tools when you're ready to elevate your experience."
-                            media="https://cdn.pix bay.com/photo/2016/11/29/05/45/active-1867181_960_720.jpg"
+                            // media="https://cdn.pix bay.com/photo/2016/11/29/05/45/active-1867181_960_720.jpg"
                         />
                     </Col>
                 </Row>
@@ -42,13 +43,13 @@ function About() {
                     <Col md={lgColSize} className="mb-5">
                         <AboutSection
                             title="💬 Discord Support"
-                            description="Join our Discord for 24/7 community-driven support, feature requests, and exclusive content."
+                            description="Join our Discord for community-driven support, feature requests, and exclusive updates."
                         />
                     </Col>
                     <Col md={lgColSize} className="mb-5">
                         <AboutSection
                             title="🔗 Seamless Integrations"
-                            description="Easily integrate with OBS, vMix, and other industry tools for professional streaming and production."
+                            description="Easily integrate with OBS, vMix, and other tools for streaming and production."
                         />
                     </Col>
                 </Row>

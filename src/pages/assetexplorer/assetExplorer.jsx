@@ -3,7 +3,7 @@
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Alert, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolder, faFileCode, faHome, faDownload, faGamepad, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faFileCode, faHome, faDownload, faGamepad, faCode, faTools } from '@fortawesome/free-solid-svg-icons';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -12,6 +12,8 @@ import { ThemeContext } from '../../context/ThemeContext';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
+import { useNavbar } from '../../context/NavigationContext';
+import { useNavigate } from 'react-router-dom';
 
 const AssetExplorer = () => {
   const { isDarkMode } = useContext(ThemeContext);
@@ -22,6 +24,8 @@ const AssetExplorer = () => {
   const [error, setError] = useState(null);
 
   const [selectedCard, setSelectedCard] = useState(null);
+
+  const navigate = useNavigate();
 
 
 
@@ -108,8 +112,8 @@ const AssetExplorer = () => {
 
         </Card.Header>
         {/* <Card.Body className="px-4 pt-3"> */}
-        <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
-          <p className="lead mb-4">Select a category to explore:</p>
+        <Card.Body className={`px-4 pt-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+          {/* <p className="lead mb-4">Select a category to explore:</p> */}
           <Row className="justify-content-center g-4">
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
@@ -140,6 +144,7 @@ const AssetExplorer = () => {
                 </Card.Body>
               </Card>
             </Col>
+
             <Col xs={12} md={6}>
               <Card className="h-100 shadow-sm hover-card">
                 {/* <Card.Body className="d-flex flex-column"> */}
@@ -161,6 +166,31 @@ const AssetExplorer = () => {
                 </Card.Body>
               </Card>
             </Col>
+
+
+            <Col xs={12} md={6}>
+              <Card className="h-100 shadow-sm hover-card">
+                {/* <Card.Body className="d-flex flex-column"> */}
+                <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-white text-dark' : 'bg-dark text-light'}`}>
+                <h3 className="h4 mb-3">
+                    <FontAwesomeIcon icon={faTools} className="me-2" />
+                    Game Config Creator
+                  </h3>
+                  <p className="mb-4">
+                    Create or edit a game config to use or share with others.
+                  </p>
+                  <Button
+                    variant="primary"
+                    className="mt-auto"
+                    onClick={() => navigate('/config-builder')}
+                  >
+                    Explore Packs
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            
           </Row>
         </Card.Body>
       </Card>
