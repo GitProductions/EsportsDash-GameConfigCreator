@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Container, Row, Col, Button, Nav } from 'react-bootstrap';
-import { ThemeContext } from './context/ThemeContext';
+import { ThemeContext } from '../context/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 

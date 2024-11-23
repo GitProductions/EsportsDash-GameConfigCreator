@@ -1,51 +1,27 @@
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion'; 
 import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faFilm, faRedoAlt, faCloud } from '@fortawesome/free-solid-svg-icons';
 import { ThemeContext } from '../../../context/ThemeContext';
 
 const Features = () => {
   const { isDarkMode } = useContext(ThemeContext);
-  const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 50 },
-    show: { opacity: 1, y: 0 }
-  };
 
   return (
     <Container className={`py-5 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
       <h2 className="text-center mb-5">Why Choose Esports Dashboard?</h2>
-      <motion.div
-        ref={ref}
-        variants={container}
-        initial="hidden"
-        animate={isInView ? "show" : "hidden"}
-      >
-        <Row>
-          {featuresData.map((feature, index) => (
-            <Feature
-              key={index}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-              variants={item}
-            />
-          ))}
-        </Row>
-      </motion.div>
+      <Row>
+        {featuresData.map((feature, index) => (
+          <Feature
+            key={index}
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+            index={index}
+          />
+        ))}
+      </Row>
     </Container>
   );
 };
@@ -103,20 +79,34 @@ const featuresData = [
   }
 ];
 
-const Feature = ({ icon, title, description, variants }) => (
-  <Col xs={12} md={6} lg={3} className="mb-4">
-    <motion.div variants={variants} className="h-100">
-      <Card className="h-100 shadow-sm hover-card border-0">
-        <Card.Body className="text-center p-4">
-          <div className="feature-icon mb-3">
-            <FontAwesomeIcon icon={icon} size="2x" className="text-primary" />
-          </div>
-          <h3 className="h5 mb-3">{title}</h3>
-          <p className="text-muted mb-0">{description}</p>
-        </Card.Body>
-      </Card>
-    </motion.div>
-  </Col>
-);
+const Feature = ({ icon, title, description, index }) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "0px 0px -100px 0px"
+  });
+
+  return (
+    <Col xs={12} md={6} lg={3} className="mb-4">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.5 }}
+        className="h-100"
+      >
+        <Card className="h-100 shadow-sm hover-card border-0">
+          <Card.Body className="text-center p-4">
+            <div className="feature-icon mb-3">
+              <FontAwesomeIcon icon={icon} size="2x" className="text-primary" />
+            </div>
+            <h3 className="h5 mb-3">{title}</h3>
+            <p className="text-muted mb-0">{description}</p>
+          </Card.Body>
+        </Card>
+      </motion.div>
+    </Col>
+  );
+};
 
 export default Features;

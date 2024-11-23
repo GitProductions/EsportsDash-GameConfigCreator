@@ -3,8 +3,8 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import { NavigationProvider } from './context/NavigationContext';
 import { AnimatePresence } from 'framer-motion';
 
-import Header from './Header';
-import Footer from './Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import PageWrapper from './components/PageWrapper';
 import Downloads from './pages/downloads/downloads';
 import AssetExplorer from './pages/assetexplorer/assetExplorer';

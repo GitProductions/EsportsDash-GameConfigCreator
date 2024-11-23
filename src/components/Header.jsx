@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { Navbar, Nav, Container, Row, Col, Button, } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
-import { ThemeContext } from './context/ThemeContext';
+import { ThemeContext } from '../context/ThemeContext';
 import { Link, useLocation } from 'react-router-dom';
-import { useNavbar } from './context/NavigationContext';
+import { useNavbar } from '../context/NavigationContext';
 
 function Header() {
   const { selectedPage, setSelectedPage } = useNavbar();
