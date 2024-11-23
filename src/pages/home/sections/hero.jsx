@@ -32,10 +32,12 @@ const Hero = () => {
                 <Row className="align-items-center">
                     <Col lg={6}>
                         <h1 className="display-4 fw-bold mb-3">
-                            Elevate Your Gaming Experience
+                        Streamline Your Esports Productions
                         </h1>
                         <p className="lead mb-4">
-                            Create, manage, and share professional esports configurations with our comprehensive dashboard solution.
+                            {/* Create, manage, and share professional esports configurations with our comprehensive dashboard solution. */}
+                            Simplify and enhance your esports broadcasts with our powerful dashboard solution. 
+                            Manage overlays, hotkeys, and integrations with vMix, OBS, and more.
                         </p>
                         <div className="d-flex gap-3">
                             <Button
