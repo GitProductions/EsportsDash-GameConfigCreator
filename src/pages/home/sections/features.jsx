@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion'; // Add useInView import
 import { faGamepad, faCode, faTrophy, faKeyboard, faBroadcastTower, faVideo, faFilm, faRedoAlt, faCloud } from '@fortawesome/free-solid-svg-icons';
 import { ThemeContext } from '../../../context/ThemeContext';
 
@@ -79,25 +79,34 @@ const featuresData = [
   }
 ];
 
-const Feature = ({ icon, title, description, index }) => (
-  <Col xs={12} md={6} lg={3} className="mb-4">
-    <motion.div
-      initial={{ opacity: 0, y: 250 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.2, duration: 0.5 }}
-      className="h-100"
-    >
-      <Card className="h-100 shadow-sm hover-card border-0">
-        <Card.Body className="text-center p-4">
-          <div className="feature-icon mb-3">
-            <FontAwesomeIcon icon={icon} size="2x" className="text-primary" />
-          </div>
-          <h3 className="h5 mb-3">{title}</h3>
-          <p className="text-muted mb-0">{description}</p>
-        </Card.Body>
-      </Card>
-    </motion.div>
-  </Col>
-);
+const Feature = ({ icon, title, description, index }) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "0px 0px -100px 0px"
+  });
+
+  return (
+    <Col xs={12} md={6} lg={3} className="mb-4">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.5 }}
+        className="h-100"
+      >
+        <Card className="h-100 shadow-sm hover-card border-0">
+          <Card.Body className="text-center p-4">
+            <div className="feature-icon mb-3">
+              <FontAwesomeIcon icon={icon} size="2x" className="text-primary" />
+            </div>
+            <h3 className="h5 mb-3">{title}</h3>
+            <p className="text-muted mb-0">{description}</p>
+          </Card.Body>
+        </Card>
+      </motion.div>
+    </Col>
+  );
+};
 
 export default Features;
