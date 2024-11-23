@@ -1,3 +1,5 @@
+
+
 import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Alert, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +9,9 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { ThemeContext } from '../../context/ThemeContext';
 
-import { downloadFolder, fetchFiles, fetchFolders, githubImages } from './configDownloader';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+
 
 const AssetExplorer = () => {
   const { isDarkMode } = useContext(ThemeContext);
@@ -19,17 +23,80 @@ const AssetExplorer = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const handleCardClick = (folderName) => {
-    setSelectedCard(folderName);
-    setError(null);
-    fetchFiles(`Game%20Configs/${folderName}`)
-      .then(bggFiles => setFiles(bggFiles))
-      .catch(err => setError(err.message));
+
+
+  const githubRepoPath = "https://api.github.com/repos/GitProductions/EsportsDashBoard/contents";
+  const githubImages = "https://raw.githubusercontent.com/GitProductions/EsportsDashBoard/main/Game%20Configs"
+
+
+
+  const downloadFolder = async (folderUrl, folderName) => {
+    try {
+      const response = await fetch(folderUrl);
+      const files = await response.json();
+      const zip = new JSZip();
+
+      for (const file of files) {
+        const fileResponse = await fetch(file.download_url);
+        const fileData = await fileResponse.blob();
+        zip.file(file.name, fileData);
+      }
+
+      const zipContent = await zip.generateAsync({ type: 'blob' });
+      saveAs(zipContent, `${folderName}.zip`);
+    } catch (error) {
+      console.error('Error downloading folder:', error);
+    }
   };
 
 
+  const handleCardClick = (folderName) => {
+    setSelectedCard(folderName);
+    fetchFiles(`Game%20Configs/${folderName}`);
+  };
 
-  
+  const fetchFiles = async (folderPath) => {
+    //setLoading(true);
+    setError(null);
+    try {
+      const url = `${githubRepoPath}/${folderPath}`;
+      const response = await fetch(url, { headers: { Accept: "application/vnd.github.v3+json" } });
+      if (!response.ok) throw new Error("Failed to fetch files.");
+      const data = await response.json();
+      const bggFiles = data.filter((file) => file.name.endsWith(".bgg"));
+      setFiles(bggFiles);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      //setLoading(false);
+    }
+  };
+
+  const fetchFolders = async (repoPath) => {
+    //setLoading(true);
+    setError(null);
+    try {
+      const url = `${githubRepoPath}/${repoPath}`;
+      const response = await fetch(url, { headers: { Accept: "application/vnd.github.v3+json" } });
+      if (!response.ok) throw new Error("Failed to fetch repository data.");
+      const data = await response.json();
+      const dirs = data.filter((item) => item.type === "dir");
+
+      // lets make sure that deadlock and splatoon are at the bottom as they are 'coming soon' and not as popular either..
+      dirs.sort((a, b) => {
+        if (a.name === "Deadlock" || a.name === "Splatoon") return 1;
+        if (b.name === "Deadlock" || b.name === "Splatoon") return -1;
+        return 0;
+      });
+
+      setFolders(dirs);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      //setLoading(false);
+    }
+  };
+
   const renderMenu = () => (
     <Container className={`py-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
       <Card className={`shadow ${isDarkMode ? 'bg-secondary text-white' : 'bg-white text-dark'}`}>
@@ -38,14 +105,22 @@ const AssetExplorer = () => {
             <FontAwesomeIcon icon={faFolder} className="me-2" />
             Dashboard Asset Explorer
           </h4>
-        </Card.Header>
 
+        </Card.Header>
+        {/* <Card.Body className="px-4 pt-3"> */}
         <Card.Body className={`px-4 pt-3 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
           <p className="lead mb-4">Select a category to explore:</p>
           <Row className="justify-content-center g-4">
             <Col xs={12} md={6}>
-
               <Card className="h-100 shadow-sm hover-card">
+                {/* <Card.Header className={`${isDarkMode ? 'bg-light text-dark' : 'bg-dark text-white'}`}>
+                <h3 className="h4">
+                    <FontAwesomeIcon icon={faGamepad} className="me-2" />
+                    Game Configs
+                  </h3>
+                </Card.Header> */}
+
+                {/* <Card.Body className="d-flex flex-column"> */}
                 <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-white text-dark' : 'bg-dark text-light'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faGamepad} className="me-2" />
@@ -64,12 +139,10 @@ const AssetExplorer = () => {
                   </Button>
                 </Card.Body>
               </Card>
-
             </Col>
-
             <Col xs={12} md={6}>
-
               <Card className="h-100 shadow-sm hover-card">
+                {/* <Card.Body className="d-flex flex-column"> */}
                 <Card.Body className={`d-flex flex-column ${isDarkMode ? 'bg-white text-dark' : 'bg-dark text-light'}`}>
                   <h3 className="h4 mb-3">
                     <FontAwesomeIcon icon={faCode} className="me-2" />
@@ -87,18 +160,12 @@ const AssetExplorer = () => {
                   </Button>
                 </Card.Body>
               </Card>
-
             </Col>
-
           </Row>
         </Card.Body>
       </Card>
     </Container>
   );
-
-
-
-
 
   const renderGameConfigs = () => (
     <Container className="py-5">
@@ -167,6 +234,12 @@ const AssetExplorer = () => {
                   <Col key={file.name} xs={12} md={6} lg={4}>
                     <Card className="h-100 shadow-sm hover-card">
                       <Card.Body className="d-flex flex-column">
+                        {/* <Image 
+                        src={`${githubImages}/${selectedCard}/${selectedCard}.png`}
+                         alt={file.name}
+                          className="mb-3 rounded"
+                          style={{ width: "200px", height: "200px"}}
+                           /> */}
                         <LazyLoadImage
                             // effect="blur"
                             src={`${githubImages}/${selectedCard}/${selectedCard}.png`}
@@ -207,9 +280,6 @@ const AssetExplorer = () => {
     </Container>
   );
 
-
-
-
   const renderHtmlPacks = () => (
     <Container className="py-5">
       <Card className="shadow-sm">
@@ -238,7 +308,15 @@ const AssetExplorer = () => {
               <Col key={folder.name} xs={12} md={6} lg={4}>
                 <Card className="h-100 shadow-sm hover-card">
                   <Card.Body className="d-flex flex-column">
+                    {/* <img src="/api/placeholder/300/200" alt={folder.name} className="mb-3 rounded" /> */}
                     <h3 className="h5 mb-3">{folder.name}</h3>
+                    {/* <Button
+                      variant="primary"
+                      href={`https://downgit.github.io/#/home?url=${folder.html_url}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-auto"
+                    > */}
                     <Button
                       variant="primary"
                       onClick={() => downloadFolder(folder.url, folder.name)}
@@ -256,9 +334,6 @@ const AssetExplorer = () => {
       </Card>
     </Container>
   );
-
-
-
 
   return (
     <div className="">
