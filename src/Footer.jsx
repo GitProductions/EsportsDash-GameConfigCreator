@@ -1,84 +1,85 @@
 import React, { useContext } from 'react';
-import { Nav, Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Nav } from 'react-bootstrap';
 import { ThemeContext } from './context/ThemeContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDiscord, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 
-function Footer() {
+const Footer = () => {
   const { isDarkMode } = useContext(ThemeContext);
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = {
+    quickLinks: [
+      { name: 'Documentation', href: 'https://github.com/GitProductions/EsportsDashBoard' },
+      { name: 'Support', href: '#' },
+      { name: 'Terms of Service', href: '#' },
+      { name: 'Privacy Policy', href: '#' },
+    ],
+    socialLinks: [
+      { name: 'Discord', href: 'https://discord.com', icon: faDiscord },
+      { name: 'Twitter', href: 'https://twitter.com/gitago_', icon: faTwitter },
+      { name: 'GitHub', href: 'https://github.com/GitProductions/EsportsDashBoard', icon: faGithub },
+    ],
+  };
 
   return (
-    <footer className={`py-5 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+    <footer className={`py-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
       <Container>
-        <Row className="align-items-center">
+        <Row className="text-center">
           {/* Quick Links Section */}
-          <Col md={4} className="mb-4 mb-md-0">
-            <h5 className="text-uppercase fw-bold">Quick Links</h5>
-            <Nav className="flex-column align-items-center align-items-md-start">
-              <Nav.Link
-                target="_blank"
-                href="https://github.com/GitProductions/EsportsDashBoard"
-                className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'} p-0 mb-2`}
-              >
-                Documentation
-              </Nav.Link>
-              <Nav.Link href="#" className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'} p-0 mb-2`}>
-                Support
-              </Nav.Link>
-              <Nav.Link href="#" className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'} p-0 mb-2`}>
-                Terms of Service
-              </Nav.Link>
-              <Nav.Link href="#" className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'} p-0`}>
-                Privacy Policy
-              </Nav.Link>
+          <Col xs={12} className="mb-4">
+            <h5 className="text-uppercase fw-bold mb-3">Quick Links</h5>
+            <Nav className="d-flex flex-column align-items-center">
+              {footerLinks.quickLinks.map((link) => (
+                <Nav.Link
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-0 py-1 ${isDarkMode ? 'text-white-50' : 'text-dark'}`}
+                >
+                  {link.name}
+                </Nav.Link>
+              ))}
             </Nav>
           </Col>
 
           {/* Connect Section */}
-          <Col md={4} className="text-center">
-            <h5 className="text-uppercase fw-bold">Connect With Us</h5>
-            <div className="d-flex justify-content-center gap-2 mt-3">
-              <Button
-                variant={isDarkMode ? 'outline-light' : 'outline-dark'}
-                size="sm"
-                onClick={() => window.open("https://discord.com", "_blank")}
-              >
-                Discord
-              </Button>
-              <Button
-                variant={isDarkMode ? 'outline-light' : 'outline-dark'}
-                size="sm"
-                onClick={() => window.open("https://twitter.com/gitago_", "_blank")}
-              >
-                Twitter
-              </Button>
-              <Button
-                variant={isDarkMode ? 'outline-light' : 'outline-dark'}
-                size="sm"
-                onClick={() =>
-                  window.open("https://github.com/GitProductions/EsportsDashBoard", "_blank")
-                }
-              >
-                GitHub
-              </Button>
+          <Col xs={12} className="mb-4">
+            <h5 className="text-uppercase fw-bold mb-3">Connect With Us</h5>
+            <div className="d-flex flex-wrap justify-content-center gap-2">
+              {footerLinks.socialLinks.map((link) => (
+                <Button
+                  key={link.name}
+                  variant={isDarkMode ? 'outline-light' : 'outline-dark'}
+                  size="sm"
+                  onClick={() => window.open(link.href, '_blank')}
+                  className="min-width-100"
+                  style={{ minWidth: '100px' }}
+                >
+                  <FontAwesomeIcon icon={link.icon} className="me-2" />
+                  {link.name}
+                </Button>
+              ))}
             </div>
           </Col>
 
-          {/* About Us Section */}
-          <Col md={4} className="text-center text-md-start mb-4 mb-md-0">
-            <h5 className="text-uppercase fw-bold">About Us</h5>
-            <p className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'}`}>
-              Providing professional esports production solutions since 2023.
-            </p>
+        </Row>
+
+        {/* Divider */}
+        <hr className={`my-4 ${isDarkMode ? 'border-secondary' : 'border-dark'}`} />
+
+        {/* Copyright */}
+        <Row>
+          <Col className="text-center">
+            <small className={isDarkMode ? 'text-white-50' : 'text-dark-50'}>
+              © {currentYear} Esports Dashboard. All rights reserved.
+            </small>
           </Col>
         </Row>
-        {/* Divider */}
-        <hr className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'} my-4`} />
-        {/* Footer Bottom Text */}
-        <div className={`${isDarkMode ? 'text-white-50' : 'text-dark-50'} text-center`}>
-          © 2024 Esports Dashboard. All rights reserved.
-        </div>
       </Container>
     </footer>
   );
-}
+};
 
 export default Footer;
