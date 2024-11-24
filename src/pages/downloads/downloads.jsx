@@ -1,23 +1,24 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Container, Card, Badge, Button, Alert, Spinner } from 'react-bootstrap';
+import { Container, Card, Badge, Button, Alert, Spinner, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faDownload, 
-  faCalendarAlt, 
-  faFileAlt, 
-  faExternalLinkAlt, 
+import {
+  faDownload,
+  faCalendarAlt,
+  faFileAlt,
+  faExternalLinkAlt,
   faInfoCircle,
   faArchive
 } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemeContext } from '../../context/ThemeContext';
+import BetaOverlayButton from '../../components/betaOverlay/BetaOverlayButton';
 
 const Downloads = () => {
   const [releases, setReleases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const {isDarkMode } = useContext(ThemeContext);
+  const { isDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchReleases = async () => {
@@ -91,7 +92,7 @@ const Downloads = () => {
         releases.map((release) => (
           <Card key={release.id} className="mb-4 shadow-sm hover-card">
             <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
-            {/* <Card.Header className={`bg-${isDarkMode ? 'dark' : 'primary'} text-white d-flex justify-content-between align-items-center`}> */}
+              {/* <Card.Header className={`bg-${isDarkMode ? 'dark' : 'primary'} text-white d-flex justify-content-between align-items-center`}> */}
               <h2 className="h5 mb-0">
                 {release.name || release.tag_name}
                 <Badge bg="light" text="dark" className="ms-2">
@@ -103,7 +104,8 @@ const Downloads = () => {
                   </Badge>
                 )}
               </h2>
-              <Button
+              {/* <Button
+                disabled  
                 variant="outline-light"
                 size="sm"
                 href={release.html_url}
@@ -112,9 +114,31 @@ const Downloads = () => {
               >
                 <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" />
                 View on GitHub
-              </Button>
+              </Button> */}
+              {/* <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id={`tooltip-${release.id}`}>
+                    Beta Access Only
+                  </Tooltip>
+                }
+              >
+                <Button
+                  disabled
+                  variant="outline-light"
+                  size="sm"
+                  // href={release.html
+                  // _url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" />
+                  View on GitHub
+                </Button>
+              </OverlayTrigger> */}
+              
             </Card.Header>
-            
+
             {/* <Card.Body> */}
             <Card.Body >
               <div className="mb-3">
@@ -144,21 +168,53 @@ const Downloads = () => {
                   </h3>
                   <div className="d-flex flex-wrap gap-2">
                     {release.assets.map((asset) => (
-                      <Button
+
+
+                      //  <Button
+                      //  disabled
+                      //   key={asset.id}
+                      //   variant="outline-primary"
+                      //   size="sm"
+                      //   href={asset.browser_download_url}
+                      //   target="_blank"
+                      //   rel="noopener noreferrer"
+                      //   className="d-flex align-items-center"
+                      // >
+                      //   <FontAwesomeIcon icon={faDownload} className="me-2" />
+                      //   <span className="me-2">{asset.name}</span>
+                      //   <Badge bg="light" text="dark">
+                      //     {formatFileSize(asset.size)}
+                      //   </Badge>
+                      // </Button>
+                      <OverlayTrigger
                         key={asset.id}
-                        variant="outline-primary"
-                        size="sm"
-                        href={asset.browser_download_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="d-flex align-items-center"
+                        trigger="click"
+                        placement="bottom"
+                        rootClose
+                        overlay={
+                          <Tooltip id={`tooltip-${asset.id}`}>
+                            <h6> 🚀 Beta Access Only </h6>
+                            <BetaOverlayButton />
+                          </Tooltip>
+                        }
                       >
-                        <FontAwesomeIcon icon={faDownload} className="me-2" />
-                        <span className="me-2">{asset.name}</span>
-                        <Badge bg="light" text="dark">
-                          {formatFileSize(asset.size)}
-                        </Badge>
-                      </Button>
+                        <Button
+                          disabled
+                          variant="outline-primary"
+                          size="sm"
+                          // href={asset.browser_download_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="d-flex align-items-center"
+                        >
+                          <FontAwesomeIcon icon={faDownload} className="me-2" />
+                          <span className="me-2">{asset.name}</span>
+                          <Badge bg="light" text="dark">
+                            {formatFileSize(asset.size)}
+                          </Badge>
+                        </Button>
+                      </OverlayTrigger>
+
                     ))}
                   </div>
                 </div>

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ThemeContext } from '../../../context/ThemeContext';
 import { useNavbar } from '../../../context/NavigationContext';
-import BetaOverlay from '../../../components/BetaOverlay';
+import BetaOverlay from '../../../components/betaOverlay/BetaOverlay';
 
 
 const Hero = () => {

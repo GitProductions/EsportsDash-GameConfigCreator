@@ -1,18 +1,13 @@
 import React from 'react';
-import { Button, OverlayTrigger, Popover} from 'react-bootstrap';
 import './BetaOverlay.css';
+import BetaOverlayButton from './BetaOverlayButton';
 
 const BetaOverlay = () => {
-    const customPopover = {
-        maxWidth: '500px', 
-        width: '450px'      
-    };
-
     return (
         <div className='beta-banner'>
             <span className="beta-text px-2 p-1">🚀 Join Our Beta Program!</span>
-
-            <Button className="beta-button" size='sm'>
+            <BetaOverlayButton />
+            {/* <Button className="beta-button" size='sm'>
                 <OverlayTrigger
                     trigger="click"
                     placement="bottom"
@@ -58,7 +53,7 @@ const BetaOverlay = () => {
                 >
                     <span>Get Early Access</span>
                 </OverlayTrigger>
-            </Button>
+            </Button> */}
         </div>
     );
 };
