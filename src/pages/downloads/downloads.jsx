@@ -1,17 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Container, Card, Badge, Button, Alert, Spinner, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+import { Container, Card, Badge, Alert, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faDownload,
-  faCalendarAlt,
-  faFileAlt,
-  faExternalLinkAlt,
-  faInfoCircle,
-  faArchive
-} from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faCalendarAlt, faFileAlt, faInfoCircle, faArchive } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemeContext } from '../../context/ThemeContext';
-import BetaOverlayButton from '../../components/betaOverlay/BetaOverlayButton';
 import ReleaseAssets from './releaseAssets';
 
 const Downloads = () => {
@@ -88,7 +80,6 @@ const Downloads = () => {
         releases.map((release) => (
           <Card key={release.id} className="mb-4 shadow-sm hover-card">
             <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center">
-              {/* <Card.Header className={`bg-${isDarkMode ? 'dark' : 'primary'} text-white d-flex justify-content-between align-items-center`}> */}
               <h2 className="h5 mb-0">
                 {release.name || release.tag_name}
                 <Badge bg="light" text="dark" className="ms-2">
@@ -100,39 +91,7 @@ const Downloads = () => {
                   </Badge>
                 )}
               </h2>
-              {/* <Button
-                disabled  
-                variant="outline-light"
-                size="sm"
-                href={release.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" />
-                View on GitHub
-              </Button> */}
-              {/* <OverlayTrigger
-                placement="top"
-                overlay={
-                  <Tooltip id={`tooltip-${release.id}`}>
-                    Beta Access Only
-                  </Tooltip>
-                }
-              >
-                <Button
-                  disabled
-                  variant="outline-light"
-                  size="sm"
-                  // href={release.html
-                  // _url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" />
-                  View on GitHub
-                </Button>
-              </OverlayTrigger> */}
-              
+ 
             </Card.Header>
 
             {/* <Card.Body> */}

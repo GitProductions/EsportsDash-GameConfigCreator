@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, OverlayTrigger, Popover, Badge } from "react-bootstrap";
+import { Button, OverlayTrigger, Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-// import BetaOverlayButton from '../../components/betaOverlay/BetaOverlayButton';
 import BetaOverlayPopOver from "../../components/betaOverlay/BetaOverlayPopOver";
 
 const formatFileSize = (bytes) => {

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Card, Tabs, Tab, Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faDownload, faTimes, faGamepad, faCode, faUser, faSun, faMoon, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faDownload, faTimes, faGamepad, faCode, faUser, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
