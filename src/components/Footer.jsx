@@ -27,7 +27,7 @@ const Footer = () => {
       <Container>
         <Row className="text-center">
           {/* Quick Links Section */}
-          <Col xs={12} className="mb-4">
+          {/* <Col xs={12} className="mb-4">
             <h5 className="text-uppercase fw-bold mb-3">Quick Links</h5>
             <Nav className="d-flex flex-column align-items-center">
               {footerLinks.quickLinks.map((link) => (
@@ -42,10 +42,11 @@ const Footer = () => {
                 </Nav.Link>
               ))}
             </Nav>
-          </Col>
+          </Col> */}
+          
 
           {/* Connect Section */}
-          <Col xs={12} className="mb-4">
+          <Col xs={12} className="mb-2">
             <h5 className="text-uppercase fw-bold mb-3">Connect With Us</h5>
             <div className="d-flex flex-wrap justify-content-center gap-2">
               {footerLinks.socialLinks.map((link) => (
