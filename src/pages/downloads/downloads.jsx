@@ -12,6 +12,7 @@ import {
 
 import { ThemeContext } from '../../context/ThemeContext';
 import BetaOverlayButton from '../../components/betaOverlay/BetaOverlayButton';
+import ReleaseAssets from './releaseAssets';
 
 const Downloads = () => {
   const [releases, setReleases] = useState([]);
@@ -39,11 +40,6 @@ const Downloads = () => {
     fetchReleases();
   }, []);
 
-  const formatFileSize = (bytes) => {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -166,57 +162,8 @@ const Downloads = () => {
                     <FontAwesomeIcon icon={faDownload} className="me-2" />
                     Downloads
                   </h3>
-                  <div className="d-flex flex-wrap gap-2">
-                    {release.assets.map((asset) => (
-
-
-                      //  <Button
-                      //  disabled
-                      //   key={asset.id}
-                      //   variant="outline-primary"
-                      //   size="sm"
-                      //   href={asset.browser_download_url}
-                      //   target="_blank"
-                      //   rel="noopener noreferrer"
-                      //   className="d-flex align-items-center"
-                      // >
-                      //   <FontAwesomeIcon icon={faDownload} className="me-2" />
-                      //   <span className="me-2">{asset.name}</span>
-                      //   <Badge bg="light" text="dark">
-                      //     {formatFileSize(asset.size)}
-                      //   </Badge>
-                      // </Button>
-                      <OverlayTrigger
-                        key={asset.id}
-                        trigger="click"
-                        placement="auto"
-                        rootClose
-                        overlay={
-                          <Tooltip id={`tooltip-${asset.id}`}>
-                            <h6> 🚀 Beta Access Only </h6>
-                            <BetaOverlayButton />
-                          </Tooltip>
-                        }
-                      >
-                        <Button
-                          disabled
-                          variant="outline-primary"
-                          size="sm"
-                          // href={asset.browser_download_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="d-flex align-items-center"
-                        >
-                          <FontAwesomeIcon icon={faDownload} className="me-2" />
-                          <span className="me-2">{asset.name}</span>
-                          <Badge bg="light" text="dark">
-                            {formatFileSize(asset.size)}
-                          </Badge>
-                        </Button>
-                      </OverlayTrigger>
-
-                    ))}
-                  </div>
+                  <ReleaseAssets release={release} />
+                  
                 </div>
               )}
             </Card.Body>
