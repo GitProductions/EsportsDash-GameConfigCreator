@@ -8,6 +8,7 @@ const Footer = () => {
   const { isDarkMode } = useContext(ThemeContext);
   const currentYear = new Date().getFullYear();
 
+
   const footerLinks = {
     quickLinks: [
       { name: 'Documentation', href: 'https://github.com/GitProductions/EsportsDashBoard' },
@@ -16,9 +17,12 @@ const Footer = () => {
       { name: 'Privacy Policy', href: '#' },
     ],
     socialLinks: [
+      { 
+        name: 'Twitter', 
+        href: 'https://twitter.com/intent/user?screen_name=gitago_', 
+        icon: faTwitter,
+      },
       { name: 'Discord', href: 'https://discord.com', icon: faDiscord },
-      { name: 'Twitter', href: 'https://twitter.com/gitago_', icon: faTwitter },
-      { name: 'GitHub', href: 'https://github.com/GitProductions/EsportsDashBoard', icon: faGithub },
     ],
   };
 
@@ -50,17 +54,19 @@ const Footer = () => {
             <h5 className="text-uppercase fw-bold mb-3">Connect With Us</h5>
             <div className="d-flex flex-wrap justify-content-center gap-2">
               {footerLinks.socialLinks.map((link) => (
-                <Button
-                  key={link.name}
-                  variant={isDarkMode ? 'outline-light' : 'outline-dark'}
-                  size="sm"
-                  onClick={() => window.open(link.href, '_blank')}
-                  className="min-width-100"
-                  style={{ minWidth: '100px' }}
-                >
-                  <FontAwesomeIcon icon={link.icon} className="me-2" />
-                  {link.name}
-                </Button>
+                <div key={link.name} className="d-flex flex-column align-items-center gap-2">
+                  <Button
+                    variant={isDarkMode ? 'outline-light' : 'outline-dark'}
+                    size="sm"
+                    onClick={() => window.open(link.href, '_blank')}
+                    className="min-width-100"
+                    style={{ minWidth: '100px' }}
+                  >
+                    <FontAwesomeIcon icon={link.icon} className="me-2" />
+                    {link.name}
+                  </Button>
+                
+                </div>
               ))}
             </div>
           </Col>
