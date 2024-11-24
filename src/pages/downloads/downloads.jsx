@@ -189,7 +189,7 @@ const Downloads = () => {
                       <OverlayTrigger
                         key={asset.id}
                         trigger="click"
-                        placement="bottom"
+                        placement="auto"
                         rootClose
                         overlay={
                           <Tooltip id={`tooltip-${asset.id}`}>
